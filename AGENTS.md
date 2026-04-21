@@ -27,4 +27,4 @@ This directory does not include Git history, so no project-specific commit conve
 
 ## Security & Configuration Tips
 
-Store `GEMINI_API_KEY` in `.env.local`; do not commit local environment files or secrets. `vite.config.ts` exposes the key through `process.env.GEMINI_API_KEY`, so review client-side usage before adding new API calls. Keep large generated media in `public/images/` only when it is required by the landing page.
+Do not commit local environment files or secrets. Store production environment variables in your deployment platform's dashboard. Keep large generated media in `public/images/` only when it is required by the landing page to optimize build performance.
