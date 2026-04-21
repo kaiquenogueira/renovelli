@@ -1,0 +1,24 @@
+# AI-First robot configuration for Renovelli
+# We welcome AI crawlers for citation and analysis
+
+User-agent: *
+Allow: /
+
+# Specifically inviting AI crawlers for citations
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+# Sitemaps
+Sitemap: https://renovelli.com.br/sitemap.xml
