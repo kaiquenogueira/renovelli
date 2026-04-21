@@ -21,7 +21,8 @@ interface ScrollSequenceResult {
  */
 export function useScrollSequence(
   containerRef: RefObject<HTMLDivElement | null>,
-  imageCount: number
+  imageCount: number,
+  scaleRange: [number, number] = [1, 1.25]
 ): ScrollSequenceResult {
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -55,7 +56,7 @@ export function useScrollSequence(
     useTransform(cinematicScroll, [threshold.start, threshold.end], [0, 1])
   );
 
-  const scale = useTransform(cinematicScroll, [0, 1], [1, 1.25]);
+  const scale = useTransform(cinematicScroll, [0, 1], scaleRange);
 
   return { cinematicScroll, opacities, scale };
 }

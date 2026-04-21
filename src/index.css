@@ -27,13 +27,11 @@ body {
   cursor: none;
 }
 
-a,
-button,
-[role="button"],
-input,
-select,
-textarea {
-  cursor: none !important;
+/* Reset cursor for touch devices */
+@media (pointer: coarse) {
+  body, a, button, [role="button"], input, select, textarea {
+    cursor: auto !important;
+  }
 }
 
 ::selection {
@@ -124,10 +122,16 @@ textarea {
 
 /* ─── Giant Background Typography ─── */
 .main-title-bg {
-  font-size: 15vw;
+  font-size: 25vw;
+  @media (min-width: 768px) {
+    font-size: 15vw;
+  }
   font-weight: 900;
   line-height: 0.8;
-  letter-spacing: -8px;
+  letter-spacing: -4px;
+  @media (min-width: 768px) {
+    letter-spacing: -8px;
+  }
   opacity: 0.05;
   position: absolute;
   top: 50%;

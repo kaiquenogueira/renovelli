@@ -36,7 +36,7 @@ export function CustomCursor() {
         initial="default"
         animate={isHovered ? "hover" : "default"}
         transition={{ type: "tween", ease: "backOut", duration: 0.3 }}
-        className={`fixed top-0 left-0 rounded-full pointer-events-none z-[9999] mix-blend-difference flex items-center justify-center 
+        className={`fixed top-0 left-0 rounded-full pointer-events-none z-[9999] mix-blend-difference flex items-center justify-center hidden md:block
                     ${isHovered ? 'bg-[var(--color-accent)] opacity-80' : 'bg-white opacity-100'}`}
         style={{
           left: 'var(--mouse-x)',

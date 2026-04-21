@@ -22,8 +22,8 @@ const SEQUENCE = [
 export function HeroTransformation() {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // 1. Get scroll sequence math
-  const { scale, opacities } = useScrollSequence(containerRef, SEQUENCE.length);
+  // 1. Get scroll sequence math - intensified scale for mobile impact
+  const { scale, opacities } = useScrollSequence(containerRef, SEQUENCE.length, [1, 1.35]);
 
   // 2. Get mouse reflection visual effects
   const {
@@ -39,7 +39,7 @@ export function HeroTransformation() {
       {/* ================= BACKGROUND LAYER ================= */}
       <div className="sticky top-0 h-screen w-full overflow-hidden flex items-center justify-center bg-[var(--color-bg-dark)] z-0">
 
-        <h1 className="main-title-bg z-0 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 !text-[15vw]">R-EVOLVE</h1>
+        <h1 className="main-title-bg">R-EVOLVE</h1>
 
         <motion.div
           className="absolute inset-0 w-full h-full"
@@ -91,29 +91,29 @@ export function HeroTransformation() {
       </div>
 
       {/* ================= FOREGROUND LAYER ================= */}
-      <div className="relative z-10 w-full max-w-[800px] mx-auto px-4 mt-[-100vh]">
+      <div className="relative z-10 w-full max-w-[800px] mx-auto px-6 mt-[-100vh] md:mt-[-100vh] pb-32">
         <ScrollSection
           label="Funilaria & Recuperação"
           title="Corrigimos qualquer dano estrutural, grandes amassados e imperfeições."
-          titleClassName="justify-center font-display font-light text-[32px] md:text-[48px] leading-[1.1] tracking-[-1px] text-white"
+          titleClassName="justify-center font-display font-light text-[24px] md:text-[40px] lg:text-[48px] leading-[1.1] tracking-[-0.5px] md:tracking-[-1px] text-white"
         />
 
         <ScrollSection
           label="Martelinho de Ouro"
           title="Técnica minuciosa de desamassar sem danificar a pintura original do veículo."
-          titleClassName="justify-center font-display font-light text-[32px] md:text-[48px] leading-[1.1] tracking-[-1px] text-white"
+          titleClassName="justify-center font-display font-light text-[24px] md:text-[40px] lg:text-[48px] leading-[1.1] tracking-[-0.5px] md:tracking-[-1px] text-white"
         />
 
         <ScrollSection
           label="Pintura Premium"
           title="Acabamento perfeito, reproduzindo a cor original com máximo brilho e durabilidade."
-          titleClassName="justify-center font-display font-light text-[32px] md:text-[48px] leading-[1.1] tracking-[-1px] text-white"
+          titleClassName="justify-center font-display font-light text-[24px] md:text-[40px] lg:text-[48px] leading-[1.1] tracking-[-0.5px] md:tracking-[-1px] text-white"
         />
 
         <ScrollSection
           label="Higienização & Detalhamento"
           title="Transformamos seu carro numa verdadeira obra prima."
-          titleClassName="justify-center font-display font-bold text-[36px] md:text-[56px] leading-[1.1] tracking-[-2px] text-[var(--color-accent)]"
+          titleClassName="justify-center font-display font-bold text-[28px] md:text-[48px] lg:text-[56px] leading-[1.1] tracking-[-1px] md:tracking-[-2px] text-[var(--color-accent)]"
           isAccent
         />
       </div>
