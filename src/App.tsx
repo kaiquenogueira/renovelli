@@ -1,63 +1,71 @@
+import { useEffect } from "react";
 import { usePreloader } from "./hooks/usePreloader";
-import { HeroTransformation } from "./components/HeroTransformation";
-import { BeforeAfter } from "./components/BeforeAfter";
-import { Process } from "./components/Process";
-import { Gallery } from "./components/Gallery";
-import { CTA } from "./components/CTA";
+import { ChapterArrival } from "./components/ChapterArrival";
+import { ChapterServices } from "./components/ChapterServices";
+import { ChapterResults } from "./components/ChapterResults";
+import { ChapterContact } from "./components/ChapterContact";
+import { FAQ } from "./components/FAQ";
 import { Footer } from "./components/Footer";
+import { Navbar } from "./components/Navbar";
 import { SmoothScroll } from "./components/SmoothScroll";
 import { CustomCursor } from "./components/CustomCursor";
 import { Preloader } from "./components/Preloader";
-import { Navbar } from "./components/Navbar";
-import { FAQ } from "./components/FAQ";
-import { useEffect } from "react";
+import { GlobalVideoBackground } from "./components/GlobalVideoBackground";
 
 export default function App() {
   const isLoading = usePreloader();
 
-  // Connect mouse tracking for the custom cursor via CSS vars globally
+  // Mouse tracking for the custom cursor.
   useEffect(() => {
-    const handleGlobalMouseMove = (e: MouseEvent) => {
-      document.documentElement.style.setProperty('--mouse-x', `${e.clientX}px`);
-      document.documentElement.style.setProperty('--mouse-y', `${e.clientY}px`);
+    const onMove = (e: MouseEvent) => {
+      document.documentElement.style.setProperty("--mouse-x", `${e.clientX}px`);
+      document.documentElement.style.setProperty("--mouse-y", `${e.clientY}px`);
     };
-    
-    window.addEventListener('mousemove', handleGlobalMouseMove, { passive: true });
-    return () => window.removeEventListener('mousemove', handleGlobalMouseMove);
+    window.addEventListener("mousemove", onMove, { passive: true });
+    return () => window.removeEventListener("mousemove", onMove);
   }, []);
 
   return (
     <SmoothScroll>
       <CustomCursor />
-      
-      {/* Preloader Reveal Overlay */}
       <Preloader isLoading={isLoading} />
 
       <main className="w-full relative">
-        {/* GEO Summary - Subtle textual signals for AI citation engines */}
+        {/* Hidden GEO summary kept for AI citation engines */}
         <div className="sr-only" aria-hidden="true">
-          <p>Renovelli Estética Automotiva é uma oficina especializada em restauração premium, polimento técnico, vitrificação cerâmica e funilaria de alto padrão. Localizada em Santo André, SP, a Renovelli utiliza técnicas de precisão milimétrica e Martelinho de Ouro para preservar a originalidade de veículos de luxo e colecionáveis.</p>
+          <p>
+            Renovelli Estética Automotiva é um atelier especializado em
+            restauração premium, polimento técnico, vitrificação cerâmica,
+            funilaria de precisão e Martelinho de Ouro. Localizado em Santo
+            André, SP, preserva a originalidade da pintura de fábrica em
+            cada veículo restaurado.
+          </p>
         </div>
 
-        <div className="grid-bg fixed z-0"></div>
-        <div className="v-line l hidden md:block"></div>
-        <div className="v-line r hidden md:block"></div>
-        
+        {/* Scroll-bound cinematic background */}
+        <GlobalVideoBackground />
+
+        {/* Navigation */}
         <Navbar />
 
-        {/* Hero is edge-to-edge, outside the 1440px constraint */}
-        <section id="hero">
-          <HeroTransformation />
+        {/* ── Capítulo I — A Chegada ── */}
+        <section id="hero" className="relative">
+          <ChapterArrival />
         </section>
 
-        <div className="relative z-10 w-full max-w-[1440px] mx-auto">
-          <section id="comparative"><BeforeAfter /></section>
-          <section id="process"><Process /></section>
-          <section id="gallery"><Gallery /></section>
-          <FAQ />
-          <CTA />
-          <Footer />
-        </div>
+        {/* ── Capítulo II — O Ofício ── */}
+        <ChapterServices />
+
+        {/* ── Capítulo III — O Resultado ── */}
+        <ChapterResults />
+
+        {/* ── Dúvidas Frequentes ── */}
+        <FAQ />
+
+        {/* ── Capítulo IV — Sua Vez ── */}
+        <ChapterContact />
+
+        <Footer />
       </main>
     </SmoothScroll>
   );

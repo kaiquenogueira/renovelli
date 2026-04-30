@@ -2,47 +2,53 @@ import { Magnetic } from "./Magnetic";
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 
-/**
- * Main navigation component.
- * Refactored to include scroll-based backdrop blur and transparent-to-solid transitions,
- * fixed anchor targets, and responsive CTA text based on CRO principles.
- * Added premium mobile navigation overlay.
- */
+const menuLinks = [
+  { name: "I · Chegada", short: "Chegada", href: "#hero" },
+  { name: "II · Ofício", short: "Ofício", href: "#services" },
+  { name: "III · Resultado", short: "Resultado", href: "#results" },
+  { name: "IV · Contato", short: "Contato", href: "#cta" },
+];
+
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
-    };
-
+    const handleScroll = () => setScrolled(window.scrollY > 60);
     window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll(); // Check on mount
-
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const menuLinks = [
-    { name: "Início", href: "#hero" },
-    { name: "Antes/Depois", href: "#comparative" },
-    { name: "Preços/FAQ", href: "#faq" },
-    { name: "Galeria", href: "#gallery" },
-  ];
-
   return (
     <>
-      <nav className={`fixed top-0 w-full flex justify-between items-center py-6 px-6 md:px-[60px] z-50 transition-all duration-500 ${scrolled || isOpen ? 'bg-[var(--color-bg-dark)]/80 backdrop-blur-md border-b border-[var(--color-border)]' : 'bg-transparent'}`}>
+      <nav
+        className={`fixed top-0 w-full flex justify-between items-center py-5 px-6 md:px-[60px] z-50 transition-all duration-500 ${
+          scrolled || isOpen
+            ? "bg-[var(--color-bg)]/80 backdrop-blur-md border-b border-[var(--color-border)]"
+            : "bg-transparent"
+        }`}
+      >
         <Magnetic strength={0.2}>
-          <div style={{ fontFamily: 'var(--font-logo)' }} className="text-[28px] md:text-[34px] italic font-medium cursor-pointer text-[var(--color-accent)] drop-shadow-md z-[60]" onClick={() => { window.scrollTo(0, 0); setIsOpen(false); }}>
+          <div
+            className="font-display italic text-[26px] md:text-[30px] font-light cursor-pointer text-[var(--color-text)] z-[60]"
+            style={{ fontVariationSettings: '"opsz" 144, "SOFT" 80, "WONK" 1' }}
+            onClick={() => {
+              window.scrollTo(0, 0);
+              setIsOpen(false);
+            }}
+          >
             Renovelli
           </div>
         </Magnetic>
 
-        <div className="hidden md:flex gap-8 text-[12px] uppercase tracking-[2px] font-semibold items-center">
+        <div className="hidden md:flex gap-7 items-center">
           {menuLinks.map((link) => (
-            <Magnetic key={link.href} strength={0.4}>
-              <a href={link.href} className="inline-block text-[#666666] hover:text-white transition-colors">
+            <Magnetic key={link.href} strength={0.3}>
+              <a
+                href={link.href}
+                className="font-mono text-[10px] tracking-[3px] uppercase text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors"
+              >
                 {link.name}
               </a>
             </Magnetic>
@@ -51,76 +57,81 @@ export function Navbar() {
 
         <div className="flex items-center gap-4">
           <Magnetic strength={0.1}>
-            <a href="#cta" className="cta-btn hidden md:block">
-              Agendar Avaliação
+            <a href="#cta" className="cta-btn hidden md:inline-flex">
+              Avaliação Gratuita
             </a>
           </Magnetic>
 
-          {/* Mobile Menu Button */}
-          <button 
+          <button
             onClick={() => setIsOpen(!isOpen)}
             className="md:hidden flex flex-col gap-1.5 p-2 z-[60] cursor-pointer"
             aria-label="Menu"
           >
-            <motion.span 
+            <motion.span
               animate={isOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
-              className="w-6 h-0.5 bg-[var(--color-accent)]" 
+              className="w-6 h-px bg-[var(--color-brass)]"
             />
-            <motion.span 
+            <motion.span
               animate={isOpen ? { opacity: 0 } : { opacity: 1 }}
-              className="w-4 h-0.5 bg-[var(--color-accent)] self-end" 
+              className="w-4 h-px bg-[var(--color-brass)] self-end"
             />
-            <motion.span 
+            <motion.span
               animate={isOpen ? { rotate: -45, y: -8, width: 24 } : { rotate: 0, y: 0, width: 12 }}
-              className="w-3 h-0.5 bg-[var(--color-accent)] self-end" 
+              className="w-3 h-px bg-[var(--color-brass)] self-end"
             />
           </button>
         </div>
       </nav>
 
-      {/* Fullscreen Mobile Menu Overlay */}
+      {/* Fullscreen mobile menu */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ type: "spring", damping: 25, stiffness: 200 }}
-            className="fixed inset-0 bg-[var(--color-bg-dark)] z-[45] flex flex-col items-center justify-center pt-24"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed inset-0 bg-[var(--color-bg)] z-[45] flex flex-col items-center justify-center px-6"
           >
-            <div className="flex flex-col gap-8 items-center">
+            <div className="flex flex-col gap-6 items-center text-center">
               {menuLinks.map((link, i) => (
                 <motion.a
                   key={link.href}
                   href={link.href}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.1 }}
+                  transition={{ delay: 0.1 + i * 0.07 }}
                   onClick={() => setIsOpen(false)}
-                  className="text-4xl font-display font-light text-white hover:text-[var(--color-accent)] transition-colors"
+                  className="font-display italic text-[40px] font-light text-[var(--color-text)] hover:text-[var(--color-brass)] transition-colors"
+                  style={{ fontVariationSettings: '"opsz" 144, "SOFT" 80' }}
                 >
-                  {link.name}
+                  {link.short}
                 </motion.a>
               ))}
               <motion.a
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.4 }}
+                transition={{ delay: 0.5 }}
                 href="#cta"
                 onClick={() => setIsOpen(false)}
-                className="mt-8 cta-btn !text-lg !px-10 !py-4"
+                className="mt-10 cta-btn !text-[12px] !py-[16px] !px-[40px]"
               >
-                Agendar Avaliação
+                Avaliação Gratuita
               </motion.a>
             </div>
 
-            {/* Background decoration for the menu */}
-            <div className="absolute bottom-10 left-10 opacity-10 font-logo italic text-6xl rotate-[-15deg] pointer-events-none">
-              Renovelli
-            </div>
-            <div className="absolute top-40 right-[-20%] opacity-5 font-display font-black text-[30vw] uppercase pointer-events-none">
-              Premium
-            </div>
+            {/* Decorative hex motif */}
+            <svg
+              className="absolute bottom-10 right-[-10%] opacity-[0.04] pointer-events-none"
+              width="500"
+              height="600"
+              viewBox="0 0 100 115.47"
+              fill="none"
+              stroke="var(--color-brass)"
+              strokeWidth="0.4"
+            >
+              <polygon points="50,2 96,28.86 96,86.6 50,113.46 4,86.6 4,28.86" />
+            </svg>
           </motion.div>
         )}
       </AnimatePresence>

@@ -1,29 +1,58 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  --font-display: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  --font-logo: 'Playfair Display', serif;
+  /* ─── Typography — "Túnel de Luz" ─────────────────────────────── */
+  --font-sans: 'Geist', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --font-display: 'Fraunces', 'Times New Roman', Georgia, serif;
+  --font-mono: 'JetBrains Mono', 'Menlo', 'Consolas', monospace;
+  --font-logo: 'Fraunces', serif;
   --font-cursive: 'Great Vibes', cursive;
 
-  --color-accent: #B68D40;
-  --color-accent-glow: rgba(182, 141, 64, 0.4);
-  --color-bg-dark: #050505;
-  --color-muted: #666666;
-  --color-muted-dark: #444444;
-  --color-surface: rgba(255, 255, 255, 0.05);
-  --color-border: rgba(255, 255, 255, 0.1);
-  --color-border-accent: rgba(182, 141, 64, 0.2);
-  --color-text-secondary: #888888;
+  /* ─── Color palette — Vidro Líquido ─────────────────────────── */
+  --color-bg: #0A0E12;
+  --color-bg-dark: #0A0E12;
+  --color-bg-elev: #11161C;
+  --color-surface: #14181E;
+  --color-surface-elev: #1A1F26;
+
+  --color-text: #F0EBE0;
+  --color-text-muted: #8A847A;
+  --color-text-dim: #555048;
+
+  --color-border: rgba(240, 235, 224, 0.08);
+  --color-border-strong: rgba(240, 235, 224, 0.18);
+  --color-border-accent: rgba(201, 163, 106, 0.25);
+
+  /* Brass — warmer, more bronzed than the previous gold */
+  --color-brass: #C9A36A;
+  --color-brass-deep: #8E6E3E;
+  --color-brass-glow: rgba(201, 163, 106, 0.35);
+
+  /* LED tunnel signature — used SPARINGLY for hex outlines and highlights */
+  --color-led: #E8F4FF;
+  --color-led-glow: rgba(232, 244, 255, 0.25);
+
+  /* Oxblood — single chapter accent, "Antes" labels */
+  --color-oxblood: #8B2D2D;
+
+  /* Legacy aliases so older components don't break during migration */
+  --color-accent: var(--color-brass);
+  --color-accent-glow: var(--color-brass-glow);
+  --color-muted: var(--color-text-muted);
+  --color-muted-dark: var(--color-text-dim);
+  --color-text-secondary: #B5AFA2;
 }
 
-/* ─── Base Reset ─── */
+/* ─── Base reset ─────────────────────────────────────────────── */
 body {
-  background-color: var(--color-bg-dark);
-  color: #FFFFFF;
+  background-color: var(--color-bg);
+  color: var(--color-text);
   margin: 0;
   padding: 0;
   font-family: var(--font-sans);
+  font-feature-settings: "ss01", "cv11";
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   cursor: none;
 }
 
@@ -35,34 +64,28 @@ body {
 }
 
 ::selection {
-  background-color: var(--color-accent);
-  color: white;
+  background-color: var(--color-brass);
+  color: var(--color-bg);
 }
 
-/* ─── Scrollbar ─── */
+/* ─── Scrollbar ──────────────────────────────────────────────── */
 ::-webkit-scrollbar {
   width: 8px;
 }
-
 ::-webkit-scrollbar-track {
-  background: var(--color-bg-dark);
+  background: var(--color-bg);
 }
-
 ::-webkit-scrollbar-thumb {
-  background: #222222;
+  background: var(--color-surface-elev);
   border-radius: 4px;
 }
-
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-accent);
+  background: var(--color-brass);
 }
 
-/* ─── Accessibility ─── */
+/* ─── Accessibility ──────────────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
-
-  *,
-  *::before,
-  *::after {
+  *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
@@ -70,15 +93,33 @@ body {
   }
 }
 
-/* ─── Utility Classes ─── */
-.font-display {
+/* ─── Font utilities ─────────────────────────────────────────── */
+.font-display { font-family: var(--font-display); }
+.font-sans    { font-family: var(--font-sans); }
+.font-mono    { font-family: var(--font-mono); }
+.font-logo    { font-family: var(--font-logo); font-style: italic; }
+
+/* Fraunces optical sizing — bigger size = more contrast, more flair */
+.fraunces-display {
   font-family: var(--font-display);
+  font-variation-settings: "opsz" 144, "SOFT" 30, "WONK" 1;
+  font-weight: 400;
+  letter-spacing: -0.04em;
 }
 
+.fraunces-editorial {
+  font-family: var(--font-display);
+  font-variation-settings: "opsz" 72, "SOFT" 50;
+  font-style: italic;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+}
+
+/* ─── Surface utilities ──────────────────────────────────────── */
 .glass-panel {
-  background: var(--color-surface);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  background: rgba(20, 24, 30, 0.55);
+  backdrop-filter: blur(14px) saturate(140%);
+  -webkit-backdrop-filter: blur(14px) saturate(140%);
   border: 1px solid var(--color-border);
 }
 
@@ -87,21 +128,93 @@ body {
   inset: 0;
   pointer-events: none;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-  opacity: 0.15;
+  opacity: 0.10;
   mix-blend-mode: overlay;
 }
 
-.grid-bg {
+/* ─── Hex tunnel pattern — site-wide leitmotif ──────────────── */
+/* Static hex grid, very subtle, fixed behind everything */
+.hex-bg {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='84' height='96' viewBox='0 0 84 96'><g fill='none' stroke='%23F0EBE0' stroke-opacity='0.035' stroke-width='0.6'><polygon points='42,2 80,24 80,72 42,94 4,72 4,24'/><polygon points='0,48 38,26 38,-22 0,-44 -38,-22 -38,26'/><polygon points='84,48 122,26 122,-22 84,-44 46,-22 46,26'/></g></svg>");
+  background-size: 84px 96px;
+  mask-image: radial-gradient(ellipse at center, black 30%, transparent 90%);
+  -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 90%);
+}
+
+/* Single hex cell shape — used for photo frames, badges */
+.hex-clip {
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+}
+
+/* "Pointy-top" hex variant (vertical) */
+.hex-clip-pointy {
+  clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
+}
+
+/* Hex border via stacked clip-paths (for outlined frames) */
+.hex-frame {
+  position: relative;
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+}
+.hex-frame::before {
+  content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-image: radial-gradient(circle at 2px 2px, rgba(255, 255, 255, 0.03) 1px, transparent 0);
-  background-size: 40px 40px;
+  inset: 0;
+  border: 1px solid var(--color-border-strong);
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
   pointer-events: none;
 }
 
+/* Honeycomb tessellation — alternating rows offset horizontally */
+.honeycomb {
+  --hex-w: 340px;
+  --hex-h: 295px; /* w * sin(60deg) for regular flat-top hex */
+  --hex-gap: 22px;
+  display: grid;
+  grid-template-columns: repeat(3, var(--hex-w));
+  gap: var(--hex-gap);
+  justify-content: center;
+}
+
+.honeycomb > .hex-cell:nth-child(3n+2) {
+  transform: translateY(calc(var(--hex-h) / 2 + var(--hex-gap) / 2));
+}
+
+@media (max-width: 1180px) {
+  .honeycomb {
+    --hex-w: 280px;
+    --hex-h: 243px;
+  }
+}
+
+@media (max-width: 900px) {
+  .honeycomb {
+    grid-template-columns: repeat(2, var(--hex-w));
+    --hex-w: 280px;
+    --hex-h: 243px;
+  }
+  .honeycomb > .hex-cell:nth-child(3n+2) {
+    transform: translateY(0);
+  }
+  .honeycomb > .hex-cell:nth-child(2n) {
+    transform: translateY(calc(var(--hex-h) / 2 + var(--hex-gap) / 2));
+  }
+}
+
+@media (max-width: 640px) {
+  .honeycomb {
+    grid-template-columns: 1fr;
+    --hex-w: 300px;
+    --hex-h: 260px;
+  }
+  .honeycomb > .hex-cell { transform: none !important; }
+}
+
+/* ─── Vertical guide lines (kept from original) ─────────────── */
 .v-line {
   position: fixed;
   top: 0;
@@ -111,28 +224,34 @@ body {
   z-index: 50;
   pointer-events: none;
 }
+.v-line.l { left: 60px; }
+.v-line.r { right: 60px; }
 
-.v-line.l {
-  left: 60px;
+/* ─── Grid bg (subtle dot pattern, kept) ─────────────────────── */
+.grid-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(circle at 2px 2px, rgba(240, 235, 224, 0.025) 1px, transparent 0);
+  background-size: 40px 40px;
+  pointer-events: none;
 }
 
-.v-line.r {
-  right: 60px;
-}
-
-/* ─── Giant Background Typography ─── */
+/* ─── Giant editorial typography ─────────────────────────────── */
 .main-title-bg {
-  font-size: 25vw;
+  font-family: var(--font-display);
+  font-variation-settings: "opsz" 144, "SOFT" 30;
+  font-size: 28vw;
   @media (min-width: 768px) {
-    font-size: 15vw;
+    font-size: 18vw;
   }
-  font-weight: 900;
-  line-height: 0.8;
-  letter-spacing: -4px;
-  @media (min-width: 768px) {
-    letter-spacing: -8px;
-  }
-  opacity: 0.05;
+  font-weight: 300;
+  font-style: italic;
+  line-height: 0.85;
+  letter-spacing: -0.05em;
+  opacity: 0.06;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -141,43 +260,126 @@ body {
   white-space: nowrap;
   width: 100%;
   text-align: center;
+  color: var(--color-text);
 }
 
-/* ─── CTA Button ─── */
+/* ─── CTA button ─────────────────────────────────────────────── */
 .cta-btn {
-  border: 1px solid var(--color-accent);
-  color: var(--color-accent);
-  padding: 10px 24px;
-  border-radius: 100px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border: 1px solid var(--color-brass);
+  color: var(--color-brass);
+  background: transparent;
+  padding: 12px 26px;
+  border-radius: 0;
   text-decoration: none;
+  font-family: var(--font-mono);
   font-size: 11px;
-  font-weight: 700;
+  font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  transition: all 0.3s ease;
+  letter-spacing: 2px;
+  transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--color-brass);
+  transform: translateX(-101%);
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+  z-index: -1;
 }
 
 .cta-btn:hover {
-  background: var(--color-accent);
-  color: #fff;
+  color: var(--color-bg);
+  border-color: var(--color-brass);
+}
+.cta-btn:hover::before {
+  transform: translateX(0);
 }
 
-/* ─── Section Label (DRY reusable) ─── */
+/* ─── Section label (mono, technical) ─────────────────────────── */
 .section-label {
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--color-accent);
-  letter-spacing: 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--color-brass);
+  letter-spacing: 4px;
   text-transform: uppercase;
-  margin-bottom: 20px;
-  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.5));
+  margin-bottom: 24px;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
 }
 
-/* ─── Section Heading (DRY reusable) ─── */
+.section-label::before {
+  content: "";
+  width: 24px;
+  height: 1px;
+  background: var(--color-brass);
+}
+
+/* Chapter marker — large mono Roman numeral */
+.chapter-marker {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 6px;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+}
+.chapter-marker .roman {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 60px;
+  line-height: 1;
+  font-weight: 300;
+  color: var(--color-brass);
+  letter-spacing: -0.02em;
+}
+
+/* ─── Section heading ─────────────────────────────────────────── */
 .section-heading {
   font-family: var(--font-display);
+  font-variation-settings: "opsz" 144, "SOFT" 30;
   font-weight: 300;
-  letter-spacing: -2px;
-  color: white;
-  line-height: 1.1;
+  letter-spacing: -0.04em;
+  color: var(--color-text);
+  line-height: 1.05;
+}
+
+.section-heading em {
+  font-style: italic;
+  color: var(--color-brass);
+  font-variation-settings: "opsz" 144, "SOFT" 50;
+  font-weight: 300;
+}
+
+/* ─── Mono caption ────────────────────────────────────────────── */
+.mono-caption {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+/* ─── Hex hover glow (used on service cards) ─────────────────── */
+@keyframes hex-pulse {
+  0%, 100% { opacity: 0.6; }
+  50%      { opacity: 1; }
+}
+
+.hex-led-outline {
+  filter: drop-shadow(0 0 6px var(--color-led-glow));
+}
+
+.hex-led-pulse {
+  animation: hex-pulse 4s ease-in-out infinite;
 }

@@ -1,0 +1,7 @@
+file '/Users/kaique/Workspace/renovelli/renovelli-cinematic-landing/scripts/work/clip1.mp4'
+file '/Users/kaique/Workspace/renovelli/renovelli-cinematic-landing/scripts/work/clip2.mp4'
+file '/Users/kaique/Workspace/renovelli/renovelli-cinematic-landing/scripts/work/clip3.mp4'
+file '/Users/kaique/Workspace/renovelli/renovelli-cinematic-landing/scripts/work/clip4.mp4'
+file '/Users/kaique/Workspace/renovelli/renovelli-cinematic-landing/scripts/work/clip5.mp4'
+file '/Users/kaique/Workspace/renovelli/renovelli-cinematic-landing/scripts/work/clip6.mp4'
+file '/Users/kaique/Workspace/renovelli/renovelli-cinematic-landing/scripts/work/clip7.mp4'
