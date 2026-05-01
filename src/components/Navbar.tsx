@@ -23,9 +23,9 @@ export function Navbar() {
   return (
     <>
       <nav
-        className={`fixed top-0 w-full flex justify-between items-center py-5 px-6 md:px-[60px] z-50 transition-all duration-500 ${
+        className={`fixed top-0 w-full flex justify-between items-center py-5 px-6 md:px-[60px] z-50 transition-colors duration-500 ${
           scrolled || isOpen
-            ? "bg-[var(--color-bg)]/80 backdrop-blur-md border-b border-[var(--color-border)]"
+            ? "bg-[var(--color-bg)]/95 md:bg-[var(--color-bg)]/80 md:backdrop-blur-md border-b border-[var(--color-border)]"
             : "bg-transparent"
         }`}
       >
@@ -91,7 +91,7 @@ export function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 bg-[var(--color-bg)] z-[45] flex flex-col items-center justify-center px-6"
+            className="fixed inset-0 bg-[var(--color-bg)] z-[45] flex flex-col items-center justify-center px-6 overflow-hidden"
           >
             <div className="flex flex-col gap-6 items-center text-center">
               {menuLinks.map((link, i) => (
@@ -114,7 +114,7 @@ export function Navbar() {
                 transition={{ delay: 0.5 }}
                 href="#cta"
                 onClick={() => setIsOpen(false)}
-                className="mt-10 cta-btn !text-[12px] !py-[16px] !px-[40px]"
+                className="mt-10 cta-btn justify-center !text-[11px] !py-[15px] !px-[28px] !tracking-[1.5px]"
               >
                 Avaliação Gratuita
               </motion.a>

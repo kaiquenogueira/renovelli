@@ -31,13 +31,13 @@ export function ChapterContact() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, delay: 0.4 }}
-          className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6 mt-16"
+          className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center gap-4 md:gap-6 mt-16 max-w-[420px] sm:max-w-none mx-auto"
         >
           <a
             href={WHATSAPP_LINK}
             target="_blank"
             rel="noopener noreferrer"
-            className="cta-btn !text-[12px] !py-[16px] !px-[40px] !border-[var(--color-brass)] bg-[var(--color-brass)] !text-[var(--color-bg)] hover:!text-[var(--color-bg)]"
+            className="cta-btn justify-center w-full sm:w-auto !text-[11px] md:!text-[12px] !py-[15px] md:!py-[16px] !px-[24px] md:!px-[40px] !border-[var(--color-brass)] bg-[var(--color-brass)] !text-[var(--color-bg)] hover:!text-[var(--color-bg)]"
             style={{ background: "var(--color-brass)" }}
           >
             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
@@ -48,7 +48,7 @@ export function ChapterContact() {
 
           <a
             href={`tel:+5511947031845`}
-            className="font-mono text-[11px] tracking-[3px] uppercase text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors px-4 py-3 border border-transparent hover:border-[var(--color-border)]"
+            className="font-mono text-[11px] tracking-[3px] uppercase text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors px-4 py-3 border border-transparent hover:border-[var(--color-border)] text-center"
           >
             ou ligar · 11 9 4703-1845
           </a>

@@ -10,6 +10,11 @@ export function useSmoothScroll() {
   const rafIdRef = useRef<number>(0);
 
   useEffect(() => {
+    // On touch devices native momentum scrolling outperforms emulated
+    // wheel inertia, especially when paired with scroll-driven video
+    // overlays. Skip Lenis entirely on coarse-pointer devices.
+    if (window.matchMedia("(pointer: coarse)").matches) return;
+
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -17,7 +22,6 @@ export function useSmoothScroll() {
       gestureOrientation: "vertical",
       smoothWheel: true,
       wheelMultiplier: 1,
-      touchMultiplier: 2,
     });
 
     lenisRef.current = lenis;
