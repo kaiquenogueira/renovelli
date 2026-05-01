@@ -115,7 +115,7 @@ export function ChapterResults() {
               </div>
 
               <div className="md:col-span-4 flex flex-col gap-4">
-                <div className="font-mono text-[10px] tracking-[3px] text-[var(--color-text-muted)]">
+                <div className="font-mono text-[11px] tracking-[2.5px] text-[var(--color-text-muted)]">
                   Caso · {c.code}
                 </div>
                 <h3
@@ -124,13 +124,13 @@ export function ChapterResults() {
                 >
                   {c.car}
                 </h3>
-                <div className="font-display italic text-[16px] md:text-[18px] text-[var(--color-brass)]">
+                <div className="font-display italic text-[18px] md:text-[20px] text-[var(--color-brass)]">
                   {c.color}
                 </div>
-                <p className="text-[13px] leading-[1.7] text-[var(--color-text-muted)] max-w-[340px]">
+                <p className="text-[15px] leading-[1.7] text-[var(--color-text-muted)] max-w-[340px]">
                   {c.service}
                 </p>
-                <div className="font-mono text-[10px] tracking-[2px] uppercase text-[var(--color-text-dim)] border-t border-[var(--color-border)] pt-3 mt-2">
+                <div className="font-mono text-[11px] tracking-[1.8px] uppercase text-[var(--color-text-muted)] border-t border-[var(--color-border)] pt-3 mt-2">
                   {c.duration}
                 </div>
               </div>
@@ -188,7 +188,7 @@ export function ChapterResults() {
                 <div className="absolute inset-0 bg-gradient-to-t from-[var(--color-bg)]/85 via-transparent to-transparent pointer-events-none" />
                 {item.caption && (
                   <div className="absolute bottom-3 left-4 right-4 pointer-events-none">
-                    <span className="font-mono text-[9px] tracking-[2px] uppercase text-[var(--color-text)]/85">
+                    <span className="font-mono text-[11px] tracking-[2px] uppercase text-[var(--color-text)]/85">
                       {item.caption}
                     </span>
                   </div>

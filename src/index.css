@@ -271,14 +271,14 @@ body {
   border: 1px solid var(--color-brass);
   color: var(--color-brass);
   background: transparent;
-  padding: 12px 26px;
+  padding: 13px 28px;
   border-radius: 0;
   text-decoration: none;
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 500;
   text-transform: uppercase;
-  letter-spacing: 2px;
+  letter-spacing: 1.8px;
   transition: all 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
   position: relative;
   overflow: hidden;
@@ -305,10 +305,10 @@ body {
 /* ─── Section label (mono, technical) ─────────────────────────── */
 .section-label {
   font-family: var(--font-mono);
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 500;
   color: var(--color-brass);
-  letter-spacing: 4px;
+  letter-spacing: 3px;
   text-transform: uppercase;
   margin-bottom: 24px;
   display: inline-flex;
@@ -326,8 +326,8 @@ body {
 /* Chapter marker — large mono Roman numeral */
 .chapter-marker {
   font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 6px;
+  font-size: 12px;
+  letter-spacing: 3.5px;
   color: var(--color-text-muted);
   text-transform: uppercase;
   display: flex;
@@ -364,7 +364,7 @@ body {
 /* ─── Mono caption ────────────────────────────────────────────── */
 .mono-caption {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 2px;
   text-transform: uppercase;
   color: var(--color-text-muted);

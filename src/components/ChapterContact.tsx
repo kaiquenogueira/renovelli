@@ -65,11 +65,11 @@ export function ChapterContact() {
               transition={{ duration: 0.7, delay: i * 0.1 }}
               className="bg-[var(--color-bg)] p-8 md:p-10 flex flex-col gap-3"
             >
-              <span className="font-mono text-[9px] tracking-[3px] uppercase text-[var(--color-brass)]">
+              <span className="font-mono text-[11px] tracking-[2px] uppercase text-[var(--color-brass)]">
                 {f.label}
               </span>
               <span
-                className="font-display text-[18px] md:text-[20px] leading-[1.4] text-[var(--color-text)] whitespace-pre-line"
+                className="font-display text-[19px] md:text-[21px] leading-[1.4] text-[var(--color-text)] whitespace-pre-line"
                 style={{ fontVariationSettings: '"opsz" 72, "SOFT" 30' }}
               >
                 {f.value}

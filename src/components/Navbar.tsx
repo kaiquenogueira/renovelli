@@ -47,7 +47,7 @@ export function Navbar() {
             <Magnetic key={link.href} strength={0.3}>
               <a
                 href={link.href}
-                className="font-mono text-[10px] tracking-[3px] uppercase text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors"
+                className="font-mono text-[11px] tracking-[2.5px] uppercase text-[var(--color-text-muted)] hover:text-[var(--color-text)] transition-colors"
               >
                 {link.name}
               </a>

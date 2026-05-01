@@ -129,19 +129,19 @@ function ServiceHex({ service, index }: ServiceHexProps) {
 
       {/* Content layer */}
       <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-10 py-8">
-        <span className="font-mono text-[10px] tracking-[3px] text-[var(--color-brass)] mb-3">
+        <span className="font-mono text-[11px] tracking-[2.5px] text-[var(--color-brass)] mb-3">
           {service.code}
         </span>
         <h3
-          className="font-display text-[18px] md:text-[20px] font-light leading-[1.2] tracking-[-0.01em] text-[var(--color-text)] mb-4"
+          className="font-display text-[20px] md:text-[22px] font-light leading-[1.2] tracking-[-0.01em] text-[var(--color-text)] mb-4"
           style={{ fontVariationSettings: '"opsz" 72, "SOFT" 50' }}
         >
           {service.title}
         </h3>
-        <p className="text-[12px] md:text-[12.5px] leading-[1.65] text-[var(--color-text-muted)] mb-4 max-w-[230px]">
+        <p className="text-[13px] md:text-[13.5px] leading-[1.6] text-[var(--color-text-muted)] mb-4 max-w-[240px]">
           {service.blurb}
         </p>
-        <span className="font-mono text-[9.5px] tracking-[2px] uppercase text-[var(--color-brass-deep)] opacity-85">
+        <span className="font-mono text-[11px] tracking-[1.8px] uppercase text-[var(--color-brass-deep)] opacity-90">
           {service.detail}
         </span>
       </div>

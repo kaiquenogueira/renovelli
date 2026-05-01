@@ -60,7 +60,7 @@ export function ChapterHeader({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-10%" }}
           transition={{ duration: 0.8, delay: 0.45 }}
-          className="mt-8 max-w-[520px] text-[15px] leading-[1.7] text-[var(--color-text-muted)]"
+          className="mt-8 max-w-[540px] text-[16px] leading-[1.65] text-[var(--color-text-muted)]"
         >
           {lead}
         </motion.p>
