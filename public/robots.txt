@@ -1,24 +1,114 @@
-# AI-First robot configuration for Renovelli
-# We welcome AI crawlers for citation and analysis
+# ════════════════════════════════════════════════════════════
+# Renovelli Estética Automotiva — robots.txt
+# AI-first: convidamos crawlers de busca tradicional E LLMs
+# para indexação e citação.
+# ════════════════════════════════════════════════════════════
 
+# ── Crawlers tradicionais ──
 User-agent: *
 Allow: /
+Disallow: /api/
+Disallow: /*.json$
 
-# Specifically inviting AI crawlers for citations
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /images/
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+User-agent: Yandex
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+# ── Crawlers de IA / Generative Engines ──
+# OpenAI
 User-agent: GPTBot
 Allow: /
 
 User-agent: ChatGPT-User
 Allow: /
 
+User-agent: OAI-SearchBot
+Allow: /
+
+# Anthropic (Claude)
+User-agent: ClaudeBot
+Allow: /
+
 User-agent: Claude-Web
 Allow: /
 
+User-agent: anthropic-ai
+Allow: /
+
+# Google AI (Gemini, Bard, AI Overviews)
+User-agent: Google-Extended
+Allow: /
+
+User-agent: GoogleOther
+Allow: /
+
+# Apple Intelligence
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# Perplexity
 User-agent: PerplexityBot
 Allow: /
 
-User-agent: Googlebot
+User-agent: Perplexity-User
 Allow: /
 
-# Sitemaps
+# Common Crawl (treina muitos LLMs)
+User-agent: CCBot
+Allow: /
+
+# Meta AI
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: FacebookBot
+Allow: /
+
+# Amazon
+User-agent: Amazonbot
+Allow: /
+
+# Cohere / You.com / outros
+User-agent: cohere-ai
+Allow: /
+
+User-agent: YouBot
+Allow: /
+
+User-agent: Diffbot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: PetalBot
+Allow: /
+
+User-agent: MistralAI-User
+Allow: /
+
+User-agent: DeepSeekBot
+Allow: /
+
+# ── Sitemaps ──
 Sitemap: https://renovelli.com.br/sitemap.xml

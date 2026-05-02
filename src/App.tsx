@@ -31,16 +31,59 @@ export default function App() {
       <Preloader isLoading={isLoading} />
 
       <main className="w-full relative">
-        {/* Hidden GEO summary kept for AI citation engines */}
-        <div className="sr-only" aria-hidden="true">
-          <p>
-            Renovelli Estética Automotiva é um atelier especializado em
-            restauração premium, polimento técnico, vitrificação cerâmica,
-            funilaria de precisão e Martelinho de Ouro. Localizado em Santo
-            André, SP, preserva a originalidade da pintura de fábrica em
-            cada veículo restaurado.
+        {/* ── SEO/GEO: cabeçalho semântico oculto para crawlers e LLMs ── */}
+        <header className="sr-only">
+          <h1>
+            Renovelli Estética Automotiva — Atelier Premium em Santo André
+            (SP): Polimento Técnico, Vitrificação Cerâmica, Funilaria OEM e
+            Martelinho de Ouro
+          </h1>
+          <p data-speakable>
+            A Renovelli é um atelier de estética automotiva premium em Santo
+            André, São Paulo, Brasil. Há mais de 10 anos, sob direção de
+            Renato Renovelli, preserva a originalidade de veículos por meio
+            de polimento técnico em três etapas, vitrificação cerâmica
+            (ceramic coating), funilaria de precisão com colorimetria
+            computadorizada, Martelinho de Ouro (Paintless Dent Repair),
+            pintura padrão de fábrica (OEM), reforma de rodas e restauração
+            de riscos. Avaliação técnica gratuita pelo WhatsApp
+            +55 11 9 4703-1845.
           </p>
-        </div>
+          <address>
+            Endereço: Rua Caminho do Pilar, 1758 — Vila Scarpelli, Santo
+            André, SP, 09190-000, Brasil. Horário: segunda a sexta das 08:00
+            às 18:00; sábado das 08:00 às 13:00. Áreas atendidas: Santo
+            André, São Bernardo do Campo, São Caetano do Sul, Mauá, Diadema
+            e Grande ABC Paulista.
+          </address>
+          <h2>Serviços oferecidos</h2>
+          <ul>
+            <li>
+              Polimento técnico e vitrificação cerâmica — correção de
+              pintura em três etapas e proteção nano-cerâmica de até 3 anos.
+            </li>
+            <li>
+              Funilaria de precisão com colorimetria computadorizada — peça
+              reparada invisível ao espectrofotômetro.
+            </li>
+            <li>
+              Martelinho de Ouro (PDR) — remoção de amassados sem repintura,
+              preservando 100% da pintura original.
+            </li>
+            <li>
+              Pintura padrão de fábrica (OEM) em cabine pressurizada com
+              secagem controlada.
+            </li>
+            <li>
+              Reforma de rodas — alinhamento, pintura e acabamento
+              diamantado.
+            </li>
+            <li>
+              Restauração de riscos — spot repair sem repintura da peça
+              inteira.
+            </li>
+          </ul>
+        </header>
 
         {/* Scroll-bound cinematic background */}
         <GlobalVideoBackground />

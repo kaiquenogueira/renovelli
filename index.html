@@ -2,97 +2,261 @@
 <html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#0a0c0f" />
+    <meta name="format-detection" content="telephone=no" />
 
-    <!-- SEO -->
-    <title>Renovelli — Estética Automotiva Premium</title>
-    <meta name="description" content="Transformamos seu veículo com precisão milimétrica. Restauração automotiva premium, pintura de fábrica e polimento de alto brilho. Avaliação gratuita." />
-    <meta name="keywords" content="estética automotiva, restauração automotiva, pintura automotiva, polimento, funilaria premium" />
+    <!-- ═══════════════════════════════════════════════════════════
+         SEO — Search Engine Optimization
+         ═══════════════════════════════════════════════════════════ -->
+    <title>Renovelli · Estética Automotiva Premium em Santo André — Polimento, Vitrificação e Funilaria OEM</title>
+    <meta
+      name="description"
+      content="Atelier de estética automotiva premium em Santo André (SP). Polimento técnico, vitrificação cerâmica, funilaria de precisão, Martelinho de Ouro e pintura padrão de fábrica. Avaliação gratuita pelo WhatsApp."
+    />
+    <meta
+      name="keywords"
+      content="estética automotiva santo andré, polimento técnico santo andré, vitrificação cerâmica abc, funilaria premium santo andré, martelinho de ouro, pintura automotiva oem, restauração automotiva premium, detalhamento automotivo abc paulista, ceramic coating sp, renovelli"
+    />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+    <meta name="googlebot" content="index, follow, max-image-preview:large, max-snippet:-1" />
+    <meta name="bingbot" content="index, follow" />
+    <meta name="rating" content="general" />
+    <meta name="language" content="Portuguese" />
+    <meta http-equiv="content-language" content="pt-BR" />
 
-    <!-- Open Graph -->
-    <meta property="og:title" content="Renovelli — Estética Automotiva Premium" />
-    <meta property="og:description" content="Transformamos seu veículo com precisão milimétrica. Restauração, pintura e polimento premium em Santo André." />
+    <!-- ═══════════════════════════════════════════════════════════
+         GEO — Geographic targeting (local SEO)
+         ═══════════════════════════════════════════════════════════ -->
+    <meta name="geo.region" content="BR-SP" />
+    <meta name="geo.placename" content="Santo André, São Paulo" />
+    <meta name="geo.position" content="-23.6666;-46.5333" />
+    <meta name="ICBM" content="-23.6666, -46.5333" />
+
+    <!-- ═══════════════════════════════════════════════════════════
+         Authority & Authorship
+         ═══════════════════════════════════════════════════════════ -->
+    <meta name="author" content="Renato Renovelli — Renovelli Estética Automotiva" />
+    <meta name="publisher" content="Renovelli Estética Automotiva" />
+    <meta name="copyright" content="© Renovelli Estética Automotiva" />
+    <meta name="last-updated" content="2026-05-01" />
+    <link rel="canonical" href="https://renovelli.com.br/" />
+    <link rel="alternate" hreflang="pt-BR" href="https://renovelli.com.br/" />
+    <link rel="alternate" hreflang="x-default" href="https://renovelli.com.br/" />
+
+    <!-- ═══════════════════════════════════════════════════════════
+         Open Graph (Facebook, LinkedIn, WhatsApp preview)
+         ═══════════════════════════════════════════════════════════ -->
+    <meta property="og:site_name" content="Renovelli Estética Automotiva" />
+    <meta property="og:locale" content="pt_BR" />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="https://renovelli.com.br/images/bg-video/poster.jpg" />
     <meta property="og:url" content="https://renovelli.com.br/" />
+    <meta property="og:title" content="Renovelli · Estética Automotiva Premium em Santo André" />
+    <meta
+      property="og:description"
+      content="Polimento técnico, vitrificação cerâmica, funilaria de precisão e pintura OEM. A originalidade do veículo, intocada. Avaliação gratuita."
+    />
+    <meta property="og:image" content="https://renovelli.com.br/images/bg-video/poster.jpg" />
+    <meta property="og:image:secure_url" content="https://renovelli.com.br/images/bg-video/poster.jpg" />
+    <meta property="og:image:type" content="image/jpeg" />
+    <meta property="og:image:width" content="1920" />
+    <meta property="og:image:height" content="1080" />
+    <meta property="og:image:alt" content="Atelier Renovelli — veículo sob iluminação técnica em Santo André, SP" />
 
-    <!-- Twitter Card -->
+    <!-- Twitter / X -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Renovelli — Estética Automotiva Premium" />
-    <meta name="twitter:description" content="Restauração automotiva premium, polimento técnico e vitrificação em Santo André, SP." />
+    <meta name="twitter:title" content="Renovelli · Estética Automotiva Premium em Santo André" />
+    <meta
+      name="twitter:description"
+      content="Restauração automotiva premium, polimento técnico e vitrificação cerâmica. Atelier em Santo André, SP."
+    />
     <meta name="twitter:image" content="https://renovelli.com.br/images/bg-video/poster.jpg" />
+    <meta name="twitter:image:alt" content="Atelier Renovelli — Santo André, SP" />
 
-    <!-- Preload hero video poster for faster LCP -->
-    <link rel="preload" as="image" href="/images/bg-video/poster.jpg" />
-
-    <!-- Fonts -->
+    <!-- ═══════════════════════════════════════════════════════════
+         Performance (preconnect, preload, dns-prefetch)
+         ═══════════════════════════════════════════════════════════ -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Geist:wght@300..900&family=JetBrains+Mono:wght@400;500;700&family=Great+Vibes&display=swap" rel="stylesheet" />
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://www.instagram.com" />
+    <link rel="dns-prefetch" href="https://wa.me" />
+    <link rel="preload" as="image" href="/images/bg-video/poster.jpg" fetchpriority="high" />
 
-    <!-- GEO & Authority Metadata -->
-    <meta name="author" content="Renato Renovelli" />
-    <meta name="last-updated" content="2026-04-21" />
-    <link rel="canonical" href="https://renovelli.com.br/" />
+    <!-- Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Geist:wght@300..900&family=JetBrains+Mono:wght@400;500;700&family=Great+Vibes&display=swap"
+      rel="stylesheet"
+    />
 
-    <!-- Structured Data (JSON-LD) for GEO -->
+    <!-- Favicons / PWA -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/images/bg-video/poster.jpg" />
+
+    <!-- ═══════════════════════════════════════════════════════════
+         Structured Data — JSON-LD
+         (Para Google Rich Results, Bing, e citação por LLMs / GEO)
+         ═══════════════════════════════════════════════════════════ -->
+
+    <!-- 1) AutoBodyShop / LocalBusiness — entidade principal -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "LocalBusiness",
-      "name": "Renovelli Estética Automotiva",
-      "image": "https://renovelli.com.br/images/bg-video/poster.jpg",
+      "@type": ["AutoBodyShop", "LocalBusiness", "AutomotiveBusiness"],
       "@id": "https://renovelli.com.br/#organization",
+      "name": "Renovelli Estética Automotiva",
+      "alternateName": ["Renovelli", "Renovelli Atelier", "Renovelli Estética"],
+      "legalName": "Renovelli Estética Automotiva",
+      "description": "Atelier de estética automotiva premium em Santo André (SP) especializado em polimento técnico, vitrificação cerâmica, funilaria de precisão, Martelinho de Ouro e pintura padrão de fábrica (OEM). Mais de 10 anos preservando a originalidade de veículos.",
       "url": "https://renovelli.com.br/",
-      "telephone": "+551100000000",
+      "logo": "https://renovelli.com.br/images/bg-video/poster.jpg",
+      "image": [
+        "https://renovelli.com.br/images/bg-video/poster.jpg",
+        "https://renovelli.com.br/images/before-after/audi-after.jpg",
+        "https://renovelli.com.br/images/instagram-hd/cliente-satisfeito-1.jpg"
+      ],
+      "slogan": "A originalidade, intocada.",
+      "foundingDate": "2014",
+      "founder": { "@id": "https://renovelli.com.br/#renato" },
+      "telephone": "+5511947031845",
+      "email": "contatorenovelli@gmail.com",
+      "taxID": "05.867.479/0001-81",
+      "vatID": "05.867.479/0001-81",
+      "priceRange": "$$$",
+      "currenciesAccepted": "BRL",
+      "paymentAccepted": "Pix, Cartão de Crédito, Cartão de Débito, Dinheiro, Transferência",
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "Rua Caminho do Pilar, 1758",
         "addressLocality": "Santo André",
         "addressRegion": "SP",
         "postalCode": "09190-000",
-        "addressCountry": "BR"
+        "addressCountry": "BR",
+        "name": "Vila Scarpelli"
       },
       "geo": {
         "@type": "GeoCoordinates",
         "latitude": -23.6666,
         "longitude": -46.5333
       },
-      "openingHoursSpecification": {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-        "opens": "08:00",
-        "closes": "18:00"
-      },
+      "hasMap": "https://www.google.com/maps/search/?api=1&query=Renovelli+Estetica+Automotiva+Santo+Andre",
+      "areaServed": [
+        { "@type": "City", "name": "Santo André" },
+        { "@type": "City", "name": "São Bernardo do Campo" },
+        { "@type": "City", "name": "São Caetano do Sul" },
+        { "@type": "City", "name": "Mauá" },
+        { "@type": "City", "name": "Diadema" },
+        { "@type": "City", "name": "São Paulo" },
+        { "@type": "AdministrativeArea", "name": "Grande ABC Paulista" }
+      ],
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+          "opens": "08:00",
+          "closes": "18:00"
+        },
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Saturday"],
+          "opens": "08:00",
+          "closes": "13:00"
+        }
+      ],
+      "knowsAbout": [
+        "Polimento técnico de pintura",
+        "Vitrificação cerâmica (Ceramic Coating)",
+        "Correção de pintura em três etapas",
+        "Funilaria automotiva de precisão",
+        "Pintura automotiva padrão de fábrica (OEM)",
+        "Colorimetria computadorizada",
+        "Martelinho de Ouro (Paintless Dent Repair)",
+        "Reforma e restauração de rodas",
+        "Restauração de riscos profundos no verniz",
+        "Detalhamento automotivo premium"
+      ],
       "sameAs": [
         "https://www.instagram.com/renovelli.estetica/"
       ],
+      "contactPoint": [
+        {
+          "@type": "ContactPoint",
+          "telephone": "+5511947031845",
+          "contactType": "customer service",
+          "areaServed": "BR",
+          "availableLanguage": ["Portuguese", "pt-BR"],
+          "contactOption": "TollFree"
+        },
+        {
+          "@type": "ContactPoint",
+          "url": "https://wa.me/5511947031845",
+          "contactType": "sales",
+          "areaServed": "BR",
+          "availableLanguage": ["Portuguese"]
+        }
+      ],
       "hasOfferCatalog": {
         "@type": "OfferCatalog",
-        "name": "Serviços de Estética Automotiva",
+        "name": "Serviços de Estética Automotiva Premium",
         "itemListElement": [
           {
             "@type": "Offer",
             "itemOffered": {
               "@type": "Service",
-              "name": "Polimento Técnico",
-              "description": "Correção de pintura com precisão milimétrica para remoção de riscos e imperfeições."
+              "name": "Polimento Técnico & Vitrificação Cerâmica",
+              "description": "Correção de pintura em três etapas e proteção nano-cerâmica de alta dureza (9H). Brilho profundo, hidrofobia e durabilidade de até 3 anos.",
+              "serviceType": "Polimento e Ceramic Coating",
+              "provider": { "@id": "https://renovelli.com.br/#organization" }
             }
           },
           {
             "@type": "Offer",
             "itemOffered": {
               "@type": "Service",
-              "name": "Vitrificação (Ceramic Coating)",
-              "description": "Proteção nano-cerâmica de alta durabilidade para o verniz do veículo."
+              "name": "Funilaria de Precisão",
+              "description": "Reparo estrutural com colorimetria computadorizada. Transição invisível entre peça reparada e peça intacta, padrão OEM.",
+              "serviceType": "Funilaria automotiva",
+              "provider": { "@id": "https://renovelli.com.br/#organization" }
             }
           },
           {
             "@type": "Offer",
             "itemOffered": {
               "@type": "Service",
-              "name": "Funilaria Premium",
-              "description": "Reparo estrutural e pintura padrão de fábrica (OEM)."
+              "name": "Martelinho de Ouro (PDR)",
+              "description": "Remoção de amassados sem repintura. Preserva 100% da pintura original e o valor de revenda do veículo.",
+              "serviceType": "Paintless Dent Repair",
+              "provider": { "@id": "https://renovelli.com.br/#organization" }
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Pintura Padrão de Fábrica (OEM)",
+              "description": "Reprodução do padrão de saída de fábrica em granulagem, brilho e tonalidade. Cabine pressurizada com secagem controlada.",
+              "serviceType": "Pintura automotiva OEM",
+              "provider": { "@id": "https://renovelli.com.br/#organization" }
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Reforma de Rodas",
+              "description": "Restauração estrutural e estética de rodas. Devolve textura, alinhamento e o acabamento de saída de loja, incluindo diamantado.",
+              "serviceType": "Restauração de rodas automotivas",
+              "provider": { "@id": "https://renovelli.com.br/#organization" }
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Restauração de Riscos",
+              "description": "Correção localizada (spot repair) de imperfeições profundas no verniz, sem necessidade de repintar a peça inteira.",
+              "serviceType": "Spot repair",
+              "provider": { "@id": "https://renovelli.com.br/#organization" }
             }
           }
         ]
@@ -100,21 +264,122 @@
     }
     </script>
 
+    <!-- 2) Person — fundador e especialista chefe -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "Person",
+      "@id": "https://renovelli.com.br/#renato",
       "name": "Renato Renovelli",
       "jobTitle": "Fundador e Especialista Chefe",
-      "worksFor": {
-        "@id": "https://renovelli.com.br/#organization"
+      "worksFor": { "@id": "https://renovelli.com.br/#organization" },
+      "knowsLanguage": "pt-BR",
+      "knowsAbout": [
+        "Restauração automotiva premium",
+        "Polimento técnico",
+        "Vitrificação cerâmica",
+        "Funilaria de precisão",
+        "Pintura automotiva OEM"
+      ],
+      "description": "Especialista em restauração automotiva premium e detalhamento de alto padrão com mais de 10 anos de experiência no atelier Renovelli, em Santo André (SP)."
+    }
+    </script>
+
+    <!-- 3) WebSite — habilita sitelinks searchbox no Google -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "@id": "https://renovelli.com.br/#website",
+      "url": "https://renovelli.com.br/",
+      "name": "Renovelli Estética Automotiva",
+      "inLanguage": "pt-BR",
+      "publisher": { "@id": "https://renovelli.com.br/#organization" }
+    }
+    </script>
+
+    <!-- 4) WebPage com Speakable (otimização para Assistants/GEO) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "@id": "https://renovelli.com.br/#webpage",
+      "url": "https://renovelli.com.br/",
+      "name": "Renovelli · Estética Automotiva Premium em Santo André",
+      "description": "Atelier de estética automotiva premium em Santo André (SP). Polimento técnico, vitrificação cerâmica, funilaria de precisão, Martelinho de Ouro e pintura padrão de fábrica.",
+      "inLanguage": "pt-BR",
+      "isPartOf": { "@id": "https://renovelli.com.br/#website" },
+      "about": { "@id": "https://renovelli.com.br/#organization" },
+      "primaryImageOfPage": "https://renovelli.com.br/images/bg-video/poster.jpg",
+      "speakable": {
+        "@type": "SpeakableSpecification",
+        "cssSelector": ["h1", "h2", "[data-speakable]"]
       },
-      "description": "Especialista em restauração automotiva premium e detalhamento de alto padrão com mais de 10 anos de experiência."
+      "breadcrumb": { "@id": "https://renovelli.com.br/#breadcrumb" }
+    }
+    </script>
+
+    <!-- 5) BreadcrumbList -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "@id": "https://renovelli.com.br/#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Início",
+          "item": "https://renovelli.com.br/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Serviços",
+          "item": "https://renovelli.com.br/#services"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Resultados",
+          "item": "https://renovelli.com.br/#results"
+        },
+        {
+          "@type": "ListItem",
+          "position": 4,
+          "name": "Contato",
+          "item": "https://renovelli.com.br/#cta"
+        }
+      ]
     }
     </script>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
+
+    <!-- Fallback semântico para crawlers sem JS (e citação por LLMs) -->
+    <noscript>
+      <div style="padding: 2rem; font-family: system-ui, sans-serif; color: #e8e8e8; background: #0a0c0f;">
+        <h1>Renovelli — Estética Automotiva Premium em Santo André (SP)</h1>
+        <p>
+          Atelier especializado em <strong>polimento técnico</strong>,
+          <strong>vitrificação cerâmica</strong>, <strong>funilaria de precisão</strong>,
+          <strong>Martelinho de Ouro</strong> e <strong>pintura padrão de fábrica (OEM)</strong>.
+          Mais de 10 anos preservando a originalidade de veículos premium.
+        </p>
+        <p>
+          <strong>Endereço:</strong> R. Caminho do Pilar, 1758 — Vila Scarpelli, Santo André/SP, CEP 09190-000.
+          <br />
+          <strong>WhatsApp:</strong> <a href="https://wa.me/5511947031845">+55 11 9 4703-1845</a>.
+          <br />
+          <strong>E-mail:</strong> <a href="mailto:contatorenovelli@gmail.com">contatorenovelli@gmail.com</a>.
+          <br />
+          <strong>Instagram:</strong> <a href="https://www.instagram.com/renovelli.estetica/">@renovelli.estetica</a>.
+          <br />
+          <strong>Horário:</strong> Seg–Sex 08:00–18:00 · Sáb 08:00–13:00.
+        </p>
+      </div>
+    </noscript>
   </body>
 </html>
