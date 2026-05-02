@@ -61,15 +61,20 @@ export function ChapterArrival() {
             style={{ scale: brandScale, opacity: brandOpacity }}
             className="flex flex-col items-center"
           >
-            <motion.div
+            <motion.h1
               initial={{ opacity: 0, y: 80, filter: "blur(12px)" }}
               animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
               transition={{ duration: 1.6, ease: [0.2, 0.8, 0.2, 1], delay: 0.3 }}
-              className="font-display italic font-light text-[var(--color-text)] text-[18vw] md:text-[14vw] leading-[0.9] tracking-[-0.06em] text-center px-4"
+              className="font-display italic font-light text-[var(--color-text)] text-[18vw] md:text-[14vw] leading-[0.9] tracking-[-0.06em] text-center px-4 m-0"
               style={{ fontVariationSettings: '"opsz" 144, "SOFT" 80, "WONK" 1' }}
             >
               Renovelli
-            </motion.div>
+              <span className="sr-only">
+                {" "}— Estética Automotiva Premium em Santo André (SP):
+                polimento técnico, vitrificação cerâmica, funilaria OEM e
+                Martelinho de Ouro.
+              </span>
+            </motion.h1>
 
             <motion.div
               initial={{ opacity: 0 }}

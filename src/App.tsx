@@ -31,13 +31,8 @@ export default function App() {
       <Preloader isLoading={isLoading} />
 
       <main className="w-full relative">
-        {/* ── SEO/GEO: cabeçalho semântico oculto para crawlers e LLMs ── */}
-        <header className="sr-only">
-          <h1>
-            Renovelli Estética Automotiva — Atelier Premium em Santo André
-            (SP): Polimento Técnico, Vitrificação Cerâmica, Funilaria OEM e
-            Martelinho de Ouro
-          </h1>
+        {/* ── SEO/GEO: bloco semântico oculto para crawlers e LLMs ── */}
+        <section className="sr-only" aria-label="Resumo institucional Renovelli">
           <p data-speakable>
             A Renovelli é um atelier de estética automotiva premium em Santo
             André, São Paulo, Brasil. Há mais de 10 anos, sob direção de
@@ -83,7 +78,7 @@ export default function App() {
               inteira.
             </li>
           </ul>
-        </header>
+        </section>
 
         {/* Scroll-bound cinematic background */}
         <GlobalVideoBackground />

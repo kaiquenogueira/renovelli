@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Renovelli">
+  <defs>
+    <linearGradient id="brass" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#E0BC82"/>
+      <stop offset="60%" stop-color="#C9A36A"/>
+      <stop offset="100%" stop-color="#8E6E3E"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="12" fill="#0A0E12"/>
+  <polygon
+    points="32,7 55,20 55,44 32,57 9,44 9,20"
+    fill="none"
+    stroke="url(#brass)"
+    stroke-width="1.5"
+    opacity="0.55"
+  />
+  <text
+    x="32" y="44"
+    text-anchor="middle"
+    font-family="Georgia, 'Times New Roman', serif"
+    font-style="italic"
+    font-weight="300"
+    font-size="38"
+    fill="url(#brass)"
+  >R</text>
+</svg>
