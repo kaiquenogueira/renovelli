@@ -1,6 +1,10 @@
 import { useRef, useState, useEffect, useCallback } from "react";
 import { motion, useMotionValue, useTransform, animate } from "motion/react";
 
+function swapExt(src: string, ext: string) {
+  return src.replace(/\.(jpe?g|png)$/i, ext);
+}
+
 interface BeforeAfterSliderProps {
   before: string;
   after: string;
@@ -90,21 +94,37 @@ export function BeforeAfterSlider({
       onTouchStart={handleStart}
     >
       {/* AFTER (base layer) */}
-      <img
-        src={after}
-        alt={altAfter}
-        draggable={false}
-        className="absolute inset-0 w-full h-full object-cover pointer-events-none"
-      />
+      <picture>
+        <source srcSet={swapExt(after, ".avif")} type="image/avif" />
+        <source srcSet={swapExt(after, ".webp")} type="image/webp" />
+        <img
+          src={after}
+          alt={altAfter}
+          draggable={false}
+          loading="lazy"
+          decoding="async"
+          className="absolute inset-0 w-full h-full object-cover pointer-events-none"
+        />
+      </picture>
 
       {/* BEFORE (clipped overlay) */}
-      <motion.img
-        src={before}
-        alt={altBefore}
-        draggable={false}
+      <motion.div
         style={{ clipPath }}
-        className="absolute inset-0 w-full h-full object-cover pointer-events-none"
-      />
+        className="absolute inset-0 w-full h-full pointer-events-none"
+      >
+        <picture>
+          <source srcSet={swapExt(before, ".avif")} type="image/avif" />
+          <source srcSet={swapExt(before, ".webp")} type="image/webp" />
+          <img
+            src={before}
+            alt={altBefore}
+            draggable={false}
+            loading="lazy"
+            decoding="async"
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+        </picture>
+      </motion.div>
 
       {/* Mono labels */}
       <div className="absolute top-4 left-4 z-10 pointer-events-none">

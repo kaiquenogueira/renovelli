@@ -175,13 +175,17 @@ export function ChapterResults() {
                   item.hex ? "hex-clip-pointy" : ""
                 }`}
               >
-                <img
-                  src={item.src}
-                  alt={item.alt}
-                  loading="lazy"
-                  decoding="async"
-                  className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1500ms] ease-out group-hover:scale-[1.06] grayscale-[15%] group-hover:grayscale-0"
-                />
+                <picture>
+                  <source srcSet={item.src.replace(/\.(jpe?g|png)$/i, ".avif")} type="image/avif" />
+                  <source srcSet={item.src.replace(/\.(jpe?g|png)$/i, ".webp")} type="image/webp" />
+                  <img
+                    src={item.src}
+                    alt={item.alt}
+                    loading="lazy"
+                    decoding="async"
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-[1500ms] ease-out group-hover:scale-[1.06] grayscale-[15%] group-hover:grayscale-0"
+                  />
+                </picture>
                 {!item.hex && (
                   <div className="absolute inset-0 border border-[var(--color-border-strong)] pointer-events-none" />
                 )}
