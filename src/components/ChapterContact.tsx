@@ -5,7 +5,7 @@ const WHATSAPP_LINK =
   "https://wa.me/5511947031845?text=Ol%C3%A1%2C%20queria%20saber%20mais%20sobre%20a%20avalia%C3%A7%C3%A3o%20gratuita";
 
 const facts = [
-  { label: "Endereço", value: "R. Caminho do Pilar, 1758\nVila Scarpelli · Santo André" },
+  { label: "Endereço", value: "R. Caminho do Pilar, 1758\nPinheirinho · Santo André" },
   { label: "Horário", value: "Seg a Sex · 08:00 — 18:00\nSábado · 08:00 — 13:00" },
   { label: "Resposta", value: "Em média 5 min\nWhatsApp · 11 9 4703-1845" },
 ];

@@ -32,7 +32,7 @@ export function Footer() {
           <p className="text-[13px] leading-[1.65] text-[var(--color-text-muted)]">
             R. Caminho do Pilar, 1758
             <br />
-            Vila Scarpelli · Santo André
+            Pinheirinho · Santo André
             <br />
             CEP 09190-000 · SP · BR
           </p>

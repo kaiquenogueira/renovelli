@@ -51,7 +51,7 @@ export function ChapterArrival() {
             className="hidden md:flex flex-col items-end gap-1 mono-caption"
           >
             <span className="text-[var(--color-brass)]">23°39′40″ S · 46°31′12″ W</span>
-            <span>Vila Scarpelli · Santo André · BR</span>
+            <span>Pinheirinho · Santo André · BR</span>
           </motion.div>
         </div>
 

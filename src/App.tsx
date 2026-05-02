@@ -45,7 +45,7 @@ export default function App() {
             +55 11 9 4703-1845.
           </p>
           <address>
-            Endereço: Rua Caminho do Pilar, 1758 — Vila Scarpelli, Santo
+            Endereço: Rua Caminho do Pilar, 1758 — Pinheirinho, Santo
             André, SP, 09190-000, Brasil. Horário: segunda a sexta das 08:00
             às 18:00; sábado das 08:00 às 13:00. Áreas atendidas: Santo
             André, São Bernardo do Campo, São Caetano do Sul, Mauá, Diadema
