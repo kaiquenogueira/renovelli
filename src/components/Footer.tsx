@@ -80,7 +80,7 @@ export function Footer() {
               Renato Renovelli
             </span>
           </p>
-          <p className="text-[10.5px] leading-[1.65] text-[var(--color-text-dim)] font-mono tracking-[1.5px] mt-2">
+          <p className="text-[10.5px] leading-[1.65] text-[var(--color-text-muted)] font-mono tracking-[1.5px] mt-2">
             CNPJ 05.867.479/0001-81
           </p>
         </div>
