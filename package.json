@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "clean": "rm -rf dist",
     "lint": "tsc --noEmit",
-    "optimize:images": "node scripts/optimize-images.mjs"
+    "optimize:images": "node scripts/optimize-images.mjs",
+    "extract:frames": "node scripts/extract-frames.mjs"
   },
   "dependencies": {
     "@google/genai": "^1.51.0",

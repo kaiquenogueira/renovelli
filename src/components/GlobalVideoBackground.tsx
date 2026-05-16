@@ -1,47 +1,82 @@
+import { useRef } from "react";
 import { motion, useTransform } from "motion/react";
-import { useGlobalVideoScroll } from "../hooks/useGlobalVideoScroll";
+import { useDeviceCapabilities } from "../hooks/useDeviceCapabilities";
+import { useScrollProgress } from "../hooks/useScrollProgress";
+import { useVideoScrub } from "../hooks/useVideoScrub";
+import { CanvasFrameBackground } from "./CanvasFrameBackground";
 
 /**
- * Full-page fixed video background controlled by scroll.
+ * Full-page fixed background scrubbed by page scroll.
  *
- * Sits behind all content and scrubs from 0s to its full duration as the
- * user travels from top to bottom. Overlays modulate per chapter so the
- * video stays cinematic in the hero, recedes during dense content
- * sections (services / FAQ), and resurfaces softly at the CTA.
+ * Bifurcates by device capability, not viewport width:
+ *  • reduced-motion → static poster only (no rAF, no scrub)
+ *  • coarse-pointer  → <canvas> JPG frame sequence (iOS-safe scrub)
+ *  • desktop         → <video> currentTime scrub
+ *
+ * All three share one rAF progress source (useScrollProgress), so the
+ * overlay choreography below stays in sync with whichever media path is
+ * active. Overlays modulate per chapter so the background stays
+ * cinematic in the hero, recedes during dense content (services / FAQ),
+ * and resurfaces softly at the CTA.
  */
 export function GlobalVideoBackground() {
-  const { videoRef, smoothProgress } = useGlobalVideoScroll();
+  const { isCoarsePointer, prefersReducedMotion } = useDeviceCapabilities();
+  const { progress, subscribe } = useScrollProgress(!prefersReducedMotion);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const isDesktopVideo = !prefersReducedMotion && !isCoarsePointer;
+  const isCanvas = !prefersReducedMotion && isCoarsePointer;
+
+  useVideoScrub({ videoRef, subscribe, enabled: isDesktopVideo });
 
   // Subtle zoom — the tunnel keeps "approaching" as the user descends.
-  const scale = useTransform(smoothProgress, [0, 1], [1.02, 1.18]);
+  // Reduced-motion pins progress at 0, so this resolves to a static 1.02.
+  const scale = useTransform(progress, [0, 1], [1.02, 1.18]);
 
-  // Scroll-mapped video presence (inverse of overlay darkness).
-  // 0–18%   hero, video at full strength
-  // 18–60%  services + results, video heavily dimmed (content first)
+  // Scroll-mapped background presence (inverse of overlay darkness).
+  // 0–18%   hero, full strength
+  // 18–60%  services + results, heavily dimmed (content first)
   // 60–82%  FAQ, slight presence
-  // 82–100% CTA, video resurfaces toward the end
+  // 82–100% CTA, resurfaces toward the end
   const overlayOpacity = useTransform(
-    smoothProgress,
+    progress,
     [0, 0.18, 0.45, 0.65, 0.82, 1],
     [0.4, 0.55, 0.86, 0.88, 0.7, 0.5]
   );
 
   return (
     <div className="fixed inset-0 w-full h-full z-0 overflow-hidden">
-      {/* ── Scrubbed video ── */}
+      {/* ── Scrubbed media ── */}
       <motion.div
         className="absolute inset-0 w-full h-full"
         style={{ scale }}
       >
-        <video
-          ref={videoRef}
-          src="/images/bg-video/hero.mp4"
-          poster="/images/bg-video/poster.jpg"
-          className="absolute inset-0 w-full h-full object-cover"
-          playsInline
-          muted
-          preload="auto"
-        />
+        {isDesktopVideo && (
+          <video
+            ref={videoRef}
+            src="/images/bg-video/hero.mp4"
+            poster="/images/bg-video/poster.jpg"
+            className="absolute inset-0 w-full h-full object-cover"
+            playsInline
+            muted
+            preload="auto"
+          />
+        )}
+
+        {isCanvas && <CanvasFrameBackground subscribe={subscribe} />}
+
+        {prefersReducedMotion && (
+          <picture>
+            <source srcSet="/images/bg-video/poster.avif" type="image/avif" />
+            <source srcSet="/images/bg-video/poster.webp" type="image/webp" />
+            <img
+              src="/images/bg-video/poster.jpg"
+              alt=""
+              aria-hidden="true"
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+          </picture>
+        )}
       </motion.div>
 
       {/* ── Overlay 1: scroll-reactive darkness ── */}
