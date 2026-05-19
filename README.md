@@ -2,15 +2,31 @@
 
 ![Renovelli Banner](https://renovelli.com.br/images/seq-4.jpg)
 
-A high-end, cinematic landing page for **Renovelli**, a premium automotive aesthetics and restoration studio. Built with **React 19**, **Vite**, **TypeScript**, and **Tailwind CSS v4**, this project features a "Liquid Glass" design system, immersive scroll-driven animations, and elite editorial typography.
+A high-end, cinematic landing page for **Renovelli**, a premium automotive aesthetics and restoration studio. Built with **React 19**, **Vite**, **TypeScript**, and **Tailwind CSS v4**, this project features the "Vidro Líquido" design system, immersive scroll-driven animations, and elite editorial typography.
 
-## 🎞️ Cinematic Drama & Liquid Glass
+## 🎞️ Cinematic Drama & Vidro Líquido
 
-The project implements a sophisticated design language:
-- **Palette**: Deep Stone and Titanium Gold (`#D4AF37`) accents.
-- **Glassmorphism**: Advanced blurring and translucency to mimic automotive lacquer.
-- **Micro-Animations**: GSAP-powered transitions, magnetic interactions, and chromatic aberration effects.
-- **Typography**: A bold pairing of *Playfair Display* (Editorial Serif) and *Inter* (Modern Sans).
+The project implements a sophisticated design language (source of truth: `src/index.css`):
+- **Palette**: Deep ink (`#0A0E12`) with a warm Brass accent (`#C9A36A`), LED ice (`#E8F4FF`) and Oxblood (`#8B2D2D`), used sparingly.
+- **Glassmorphism**: Advanced blurring and translucency to mimic automotive lacquer; hexagonal/honeycomb leitmotif.
+- **Micro-Animations**: GSAP-powered scroll-scrub, magnetic interactions, and reveal effects.
+- **Typography**: *Fraunces* (variable editorial serif) + *Geist* (modern sans) + *JetBrains Mono*.
+
+## 🎨 «Atelier» Design System
+
+A standalone, contrast-safe **light** reinterpretation of the brand lives at
+**[`assets/design_system.html`](assets/design_system.html)**. It fixes the
+low-contrast text-over-video problem of the live hero by turning the automotive
+photography into texture (faded, desaturated, reading gradient) on a paper
+surface — keeping the cinematic drama with AAA legibility. It documents the
+full type scale, color tokens (HEX/RGB/HSL + AA/AAA intent), components and
+motion primitives. Spec: [`design-system/renovelli/ATELIER.md`](design-system/renovelli/ATELIER.md).
+
+Preview it with a static server from the project root:
+
+```bash
+python3 -m http.server   # → http://localhost:8000/assets/design_system.html
+```
 
 ## 🚀 Technical Stack
 
@@ -51,10 +67,15 @@ The project implements a sophisticated design language:
 
 ```bash
 src/
-├── components/    # Reusable sections (Hero, Gallery, CTA, etc.)
-├── hooks/         # Custom animation and interaction logic
-├── styles/        # Global design tokens and Tailwind v4 config
-└── main.tsx       # Application entry point
+├── components/          # Reusable sections (Hero, Gallery, CTA, etc.)
+├── hooks/               # Custom animation and interaction logic
+├── index.css            # Global design tokens (source of truth) + Tailwind v4
+└── main.tsx             # Application entry point
+assets/
+└── design_system.html   # Standalone «Atelier» design system showcase
+design-system/renovelli/
+├── MASTER.md            # Generic design-system rules
+└── ATELIER.md           # «Atelier» light variant spec (overrides MASTER)
 ```
 
 ## 🏗️ Production Build
