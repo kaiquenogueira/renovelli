@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Renovelli · Sistema de Design «Atelier» v1.0</title>
+    <meta name="description"
+        content="Design System «Atelier» da Renovelli — a releitura clara, legível e cinematográfica da marca. Lettering transparente, superfície branca, brass como único acento quente." />
+
+    <!-- ───── Fonts (mesma estratégia do index.html da Renovelli) ───── -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Geist:wght@300..900&family=JetBrains+Mono:wght@400;500;700&family=Great+Vibes&display=swap"
+        rel="stylesheet">
+
+    <!-- ───── Mesmas dependências dos arquivos de referência ───── -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Geist', 'Helvetica Neue', 'sans-serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                        display: ['Fraunces', 'Georgia', 'serif'],
+                        cursive: ['Great Vibes', 'cursive'],
+                    },
+                    colors: {
+                        /* Superfície clara — resolve o problema de contraste do vídeo */
+                        paper: '#EAEAE5',
+                        'paper-soft': '#F2F1ED',
+                        'paper-pure': '#FFFFFF',
+                        /* Tinta — herdada da Renovelli (--color-bg) */
+                        ink: {
+                            DEFAULT: '#0A0E12',
+                            800: '#14181E',
+                            700: '#222730',
+                            500: '#4A4F58',
+                            400: '#6B7079',
+                            300: '#9B9FA6',
+                            200: '#C8CACE',
+                        },
+                        /* Brass — único acento quente da marca */
+                        brass: {
+                            DEFAULT: '#C9A36A',
+                            deep: '#8E6E3E',
+                            soft: '#E3CDA4',
+                        },
+                        /* LED gelo — escurecido p/ legibilidade sobre branco */
+                        led: '#3F6B8C',
+                        oxblood: '#8B2D2D',
+                    },
+                    animation: {
+                        'spin-slow': 'spin 8s linear infinite',
+                        'spin-beam': 'spin 4s linear infinite',
+                        'shimmer': 'shimmer 2.4s linear infinite',
+                        'float': 'float 7s ease-in-out infinite',
+                        'float-slow': 'float 11s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        shimmer: {
+                            from: { backgroundPosition: '0 0' },
+                            to: { backgroundPosition: '-200% 0' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* ════════ BASE ════════ */
+        body {
+            font-family: 'Geist', 'Helvetica Neue', sans-serif;
+            background-color: #EAEAE5;
+            color: #0A0E12;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            font-feature-settings: "ss01", "cv11";
+        }
+
+        .text-balance { text-wrap: balance; }
+
+        /* Fraunces variable — display editorial automotivo */
+        .fraunces-display {
+            font-family: 'Fraunces', serif;
+            font-variation-settings: "opsz" 144, "SOFT" 30, "WONK" 1;
+            font-weight: 400;
+            letter-spacing: -0.04em;
+        }
+        .fraunces-editorial {
+            font-family: 'Fraunces', serif;
+            font-variation-settings: "opsz" 72, "SOFT" 50;
+            font-style: italic;
+            font-weight: 300;
+            letter-spacing: -0.02em;
+        }
+
+        /* ════════ LETTERING TRANSPARENTE (assinatura do sistema) ════════ */
+        /* Stroke vazado — herdado de artools/index.html .text-outline */
+        .text-outline {
+            -webkit-text-stroke: 1.4px #0A0E12;
+            color: transparent;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .text-outline.brass { -webkit-text-stroke-color: #C9A36A; }
+        .text-outline:hover { color: #0A0E12; -webkit-text-stroke-color: transparent; }
+        .text-outline.brass:hover { color: #C9A36A; }
+        /* Texto que se inverte sobre fotografia (negativo) */
+        .blend-diff { mix-blend-mode: difference; color: #fff; }
+        .blend-darken { mix-blend-mode: darken; }
+
+        /* ════════ REVEALS ════════ */
+        .reveal {
+            opacity: 0;
+            transform: translateY(2rem);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        .reveal-up {
+            opacity: 0;
+            transform: translateY(34px);
+            filter: blur(14px);
+            will-change: transform, opacity, filter;
+            transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-up.active { opacity: 1; transform: translateY(0); filter: blur(0); }
+
+        .reveal-zoom {
+            opacity: 0;
+            transform: scale(0.94);
+            filter: blur(10px);
+            transition: all 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal-zoom.active { opacity: 1; transform: scale(1); filter: blur(0); }
+
+        /* Masked text reveal — herdado de design-system.html */
+        .text-reveal-wrapper { overflow: hidden; display: inline-block; vertical-align: bottom; }
+        .text-reveal-content {
+            transform: translateY(110%);
+            opacity: 0;
+            transition: transform 1.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 1.3s ease;
+            display: block;
+        }
+        .reveal-active .text-reveal-content { transform: translateY(0); opacity: 1; }
+
+        /* Stagger delays (mesmos nomes das referências) */
+        .delay-100 { transition-delay: .1s; }
+        .delay-200 { transition-delay: .2s; }
+        .delay-300 { transition-delay: .3s; }
+        .delay-400 { transition-delay: .4s; }
+        .delay-500 { transition-delay: .5s; }
+        .delay-700 { transition-delay: .7s; }
+
+        /* ════════ BEAM BUTTON (Aura + Gemini) ════════ */
+        @keyframes spin { from { transform: rotate(0deg);} to { transform: rotate(360deg);} }
+        @keyframes float {
+            0%,100% { transform: translateY(0); }
+            50% { transform: translateY(-22px); }
+        }
+        @keyframes shimmer { from { transform: translateX(-100%) skewX(-15deg);} to { transform: translateX(220%) skewX(-15deg);} }
+        @keyframes marquee { 0% { transform: translateX(0);} 100% { transform: translateX(-50%);} }
+        @keyframes scroll-line { 0% { transform: translateY(-100%);} 100% { transform: translateY(100%);} }
+        @keyframes scanline { 0% { transform: translateY(-100%);} 100% { transform: translateY(220%);} }
+        @keyframes hex-pulse { 0%,100% { opacity:.4;} 50% { opacity:1;} }
+
+        .btn-beam { position: relative; z-index: 10; overflow: hidden; }
+        .btn-beam::before {
+            content: ""; position: absolute; inset: -2px; z-index: -1;
+            background: conic-gradient(from 90deg at 50% 50%, #E3CDA4 0%, #C9A36A 25%, #0A0E12 50%, #C9A36A 75%, #E3CDA4 100%);
+            animation: spin 4s linear infinite;
+            border-radius: inherit; opacity: 0; transition: opacity .35s;
+        }
+        .btn-beam:hover::before { opacity: 1; }
+        .btn-beam-content {
+            background-color: #0A0E12; color: #F2F1ED;
+            position: relative; z-index: 10; width: 100%; height: 100%;
+            border-radius: inherit; display: flex; align-items: center; justify-content: center;
+            border: 1px solid rgba(255,255,255,.08);
+        }
+
+        /* CTA fill — herdado do index.css da Renovelli (.cta-btn) */
+        .cta-btn {
+            display: inline-flex; align-items: center; gap: 10px;
+            border: 1px solid #C9A36A; color: #8E6E3E; background: transparent;
+            padding: 14px 30px; text-decoration: none;
+            font-family: 'JetBrains Mono', monospace; font-size: 12px; font-weight: 500;
+            text-transform: uppercase; letter-spacing: 1.8px;
+            transition: all .45s cubic-bezier(0.2,0.8,0.2,1);
+            position: relative; overflow: hidden;
+        }
+        .cta-btn::before {
+            content: ""; position: absolute; inset: 0; background: #C9A36A;
+            transform: translateX(-101%);
+            transition: transform .45s cubic-bezier(0.2,0.8,0.2,1); z-index: -1;
+        }
+        .cta-btn:hover { color: #0A0E12; }
+        .cta-btn:hover::before { transform: translateX(0); }
+
+        /* ════════ FLASHLIGHT CARD (Aura + Gemini) ════════ */
+        .flashlight-card { background: rgba(255,255,255,.45); position: relative; overflow: hidden; }
+        .flashlight-card::before {
+            content: ""; position: absolute; inset: 0;
+            background: radial-gradient(560px circle at var(--mouse-x,50%) var(--mouse-y,50%),
+                rgba(201,163,106,.22), rgba(255,255,255,.6) 12%, transparent 42%);
+            opacity: 0; transition: opacity .5s; pointer-events: none; z-index: 2;
+        }
+        .flashlight-card:hover::before { opacity: 1; }
+
+        /* ════════ MARQUEE ════════ */
+        .animate-marquee { display: flex; width: max-content; animation: marquee 32s linear infinite; }
+        .marquee-container { display: flex; overflow: hidden; user-select: none; }
+
+        /* ════════ TEXTURAS DE FUNDO ════════ */
+        .bg-grid {
+            background-size: 42px 42px;
+            background-image:
+                linear-gradient(to right, rgba(10,14,18,.05) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(10,14,18,.05) 1px, transparent 1px);
+        }
+        .grid-dot {
+            background-image: radial-gradient(circle at 2px 2px, rgba(10,14,18,.06) 1px, transparent 0);
+            background-size: 40px 40px;
+        }
+        .noise {
+            position: fixed; inset: 0; width: 100%; height: 100%;
+            opacity: .045; pointer-events: none; z-index: 9999;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
+        /* Honeycomb — leitmotivo Renovelli, agora claro */
+        .hex-bg {
+            position: absolute; inset: 0; pointer-events: none; z-index: 0;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='84' height='96' viewBox='0 0 84 96'><g fill='none' stroke='%230A0E12' stroke-opacity='0.05' stroke-width='0.7'><polygon points='42,2 80,24 80,72 42,94 4,72 4,24'/><polygon points='0,48 38,26 38,-22 0,-44 -38,-22 -38,26'/><polygon points='84,48 122,26 122,-22 84,-44 46,-22 46,26'/></g></svg>");
+            background-size: 84px 96px;
+            mask-image: radial-gradient(ellipse at center, black 25%, transparent 80%);
+            -webkit-mask-image: radial-gradient(ellipse at center, black 25%, transparent 80%);
+        }
+        .hex-clip { clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%); }
+
+        /* Glass panel claro */
+        .glass-panel {
+            background: rgba(255,255,255,.55);
+            backdrop-filter: blur(16px) saturate(140%);
+            -webkit-backdrop-filter: blur(16px) saturate(140%);
+            border: 1px solid rgba(10,14,18,.08);
+        }
+
+        /* Scanline (artools tech section) */
+        .scanline::after {
+            content: ""; position: absolute; left: 0; right: 0; top: 0; height: 35%;
+            background: linear-gradient(to bottom, transparent, rgba(255,255,255,.5), transparent);
+            transform: translateY(-120%); pointer-events: none;
+        }
+        .group:hover .scanline::after { animation: scanline 1.6s ease-in-out; }
+
+        .animate-scroll-line { animation: scroll-line 1.6s cubic-bezier(.77,0,.175,1) infinite; }
+        .hex-led-pulse { animation: hex-pulse 4s ease-in-out infinite; }
+
+        /* Carousel ken burns (digital-architect) */
+        .carousel-slide { position: absolute; inset: 0; transition: opacity 1.5s ease-in-out; opacity: 0; overflow: hidden; }
+        .carousel-slide.active { opacity: 1; }
+        .carousel-slide img { transform: scale(1); transition: transform 9s ease-out; }
+        .carousel-slide.active img { transform: scale(1.12); }
+
+        /* Cursor (light variant) */
+        .cursor-dot {
+            position: fixed; top: 0; left: 0; width: 9px; height: 9px; border-radius: 9999px;
+            background: #C9A36A; pointer-events: none; z-index: 10000;
+            transform: translate(-50%, -50%); transition: transform .12s ease;
+            mix-blend-mode: difference;
+        }
+        .cursor-ring {
+            position: fixed; top: 0; left: 0; width: 38px; height: 38px; border-radius: 9999px;
+            border: 1px solid rgba(10,14,18,.4); pointer-events: none; z-index: 10000;
+            transform: translate(-50%, -50%); transition: transform .18s ease, width .25s, height .25s;
+        }
+        @media (pointer: coarse) { .cursor-dot, .cursor-ring { display: none; } }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 9px; }
+        ::-webkit-scrollbar-track { background: #EAEAE5; }
+        ::-webkit-scrollbar-thumb { background: #C8CACE; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #C9A36A; }
+        ::selection { background: #C9A36A; color: #0A0E12; }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+        }
+    </style>
+</head>
+
+<body class="antialiased min-h-screen selection:bg-brass selection:text-ink pb-0 relative">
+
+    <div class="noise"></div>
+    <div class="cursor-dot" id="cursorDot"></div>
+    <div class="cursor-ring" id="cursorRing"></div>
+
+    <!-- ════════════════ MAIN WRAPPER ════════════════ -->
+    <div class="max-w-[1480px] mx-auto border-x border-ink/10 relative bg-paper shadow-2xl shadow-ink/10">
+
+        <!-- Linhas-guia verticais -->
+        <div class="absolute inset-0 pointer-events-none grid grid-cols-1 md:grid-cols-12 z-0 h-full w-full opacity-40">
+            <div class="hidden md:block md:col-span-3 border-r border-ink/10 h-full"></div>
+            <div class="hidden md:block md:col-span-6 border-r border-ink/10 h-full"></div>
+            <div class="hidden md:block md:col-span-3 h-full"></div>
+        </div>
+
+        <!-- ════════ NAVBAR ════════ -->
+        <header class="relative z-50 border-b border-ink/10 bg-paper/70 backdrop-blur-md sticky top-0 transition-transform duration-500"
+            id="navbar">
+            <div class="flex justify-between items-center px-6 py-4">
+                <a href="#hero" class="flex items-center gap-3 group cursor-pointer">
+                    <div class="w-9 h-9 bg-ink text-paper flex items-center justify-center hex-clip transition-transform group-hover:rotate-[30deg] duration-700">
+                        <iconify-icon icon="solar:diamond-bold-duotone" class="text-lg"></iconify-icon>
+                    </div>
+                    <span class="font-display italic text-xl tracking-tight">Renovelli<span
+                            class="not-italic font-sans text-xs align-super text-brass-deep ml-1 tracking-[0.25em]">DS</span></span>
+                </a>
+                <nav class="hidden md:flex items-center gap-8 text-[11px] font-mono uppercase tracking-[0.2em] text-ink/50">
+                    <a href="#typography" class="hover:text-ink transition-colors">Tipografia</a>
+                    <a href="#colors" class="hover:text-ink transition-colors">Cores</a>
+                    <a href="#components" class="hover:text-ink transition-colors">Componentes</a>
+                    <a href="#icons" class="hover:text-ink transition-colors">Ícones</a>
+                    <a href="#motion" class="hover:text-ink transition-colors">Movimento</a>
+                </nav>
+                <button class="btn-beam p-[1.5px] rounded-full group">
+                    <div class="btn-beam-content px-5 py-2 rounded-full text-[11px] font-mono uppercase tracking-[0.2em]">
+                        Baixar Kit
+                    </div>
+                </button>
+            </div>
+        </header>
+
+        <!-- ════════════════ 0 · HERO (PRIMEIRA DOBRA) ════════════════ -->
+        <section id="hero"
+            class="relative z-10 min-h-[94vh] flex flex-col justify-center border-b border-ink/10 overflow-hidden">
+
+            <!-- Camadas de fundo -->
+            <div class="absolute inset-0 overflow-hidden pointer-events-none">
+                <!-- Fotografia automotiva, dessaturada, fundindo-se ao papel -->
+                <div class="carousel-slide active" data-hero-slide>
+                    <img src="../public/images/before-after/audi-after.webp"
+                        class="absolute inset-0 w-full h-full object-cover opacity-[0.16] grayscale contrast-125 mix-blend-multiply parallax-img"
+                        data-speed="0.06" alt="">
+                </div>
+                <div class="carousel-slide" data-hero-slide>
+                    <img src="../public/images/before-after/polimento-after.webp"
+                        class="absolute inset-0 w-full h-full object-cover opacity-[0.16] grayscale contrast-125 mix-blend-multiply" alt="">
+                </div>
+                <div class="carousel-slide" data-hero-slide>
+                    <img src="../public/images/gallery/gallery-1.jpg"
+                        class="absolute inset-0 w-full h-full object-cover opacity-[0.16] grayscale contrast-125 mix-blend-multiply" alt="">
+                </div>
+                <!-- Honeycomb leitmotivo -->
+                <div class="hex-bg"></div>
+                <!-- Degradê de leitura — garante contraste do texto -->
+                <div class="absolute inset-0 bg-gradient-to-b from-paper/80 via-paper/30 to-paper"></div>
+                <!-- Orbes brass flutuantes + glow -->
+                <div class="absolute top-[-12%] right-[-8%] w-[620px] h-[620px] bg-gradient-to-br from-brass-soft/50 to-transparent rounded-full blur-3xl animate-float opacity-60"></div>
+                <div class="absolute bottom-[-14%] left-[-10%] w-[520px] h-[520px] bg-gradient-to-tr from-paper-pure to-brass-soft/20 rounded-full blur-3xl animate-float-slow"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-12 relative">
+
+                <!-- Coluna de texto -->
+                <div class="col-span-12 md:col-span-8 p-8 md:p-20 lg:p-24 flex flex-col justify-center">
+                    <div class="inline-flex items-center gap-3 mb-8 reveal delay-100">
+                        <span class="w-2 h-2 bg-brass rounded-full animate-pulse"></span>
+                        <span class="text-[11px] font-mono uppercase tracking-[0.3em] text-ink/50">Sistema «Atelier» · v1.0 · Estética Automotiva</span>
+                    </div>
+
+                    <h1 class="fraunces-display text-6xl md:text-8xl lg:text-[8.5rem] leading-[0.86] mb-8 z-20 flex flex-col items-start">
+                        <span class="text-reveal-wrapper"><span class="text-reveal-content blend-darken">A originalidade,</span></span>
+                        <span class="text-reveal-wrapper"><span class="text-reveal-content delay-200 fraunces-editorial text-outline brass">intocada.</span></span>
+                    </h1>
+
+                    <p class="text-lg md:text-xl text-ink/55 max-w-xl leading-relaxed reveal delay-500 font-light text-balance">
+                        A linguagem visual da Renovelli reinterpretada em luz: superfície clara,
+                        <span class="text-ink font-normal">lettering vazado</span> e movimento cinematográfico —
+                        legibilidade impecável, sem abrir mão do drama.
+                    </p>
+
+                    <div class="mt-12 flex flex-wrap gap-4 reveal delay-700">
+                        <button class="group relative px-8 py-4 bg-ink text-paper overflow-hidden rounded-sm transition-all hover:shadow-2xl hover:-translate-y-1">
+                            <div class="absolute inset-0 w-full h-full bg-brass-deep translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out"></div>
+                            <span class="relative z-10 font-mono text-xs uppercase tracking-[0.2em] flex items-center gap-2">
+                                Explorar componentes
+                                <iconify-icon icon="solar:arrow-right-linear" class="text-base group-hover:translate-x-1 transition-transform"></iconify-icon>
+                            </span>
+                        </button>
+                        <a href="#typography" class="cta-btn">
+                            Ver fundamentos
+                            <iconify-icon icon="solar:arrow-down-linear"></iconify-icon>
+                        </a>
+                    </div>
+
+                    <div class="mt-14 flex items-center gap-8 reveal delay-700">
+                        <div>
+                            <div class="fraunces-display text-3xl">10+</div>
+                            <div class="text-[10px] font-mono uppercase tracking-widest text-ink/40 mt-1">Anos de ofício</div>
+                        </div>
+                        <div class="w-px h-10 bg-ink/15"></div>
+                        <div>
+                            <div class="fraunces-display text-3xl">AAA</div>
+                            <div class="text-[10px] font-mono uppercase tracking-widest text-ink/40 mt-1">Intenção de contraste</div>
+                        </div>
+                        <div class="w-px h-10 bg-ink/15"></div>
+                        <div>
+                            <div class="fraunces-display text-3xl">OEM</div>
+                            <div class="text-[10px] font-mono uppercase tracking-widest text-ink/40 mt-1">Padrão de precisão</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Coluna visual -->
+                <div class="col-span-12 md:col-span-4 border-l border-ink/10 bg-paper-pure/30 backdrop-blur-sm p-8 md:p-10 flex flex-col justify-between gap-6">
+                    <div class="reveal delay-300 flashlight-card border border-ink/10 p-8 rounded-lg aspect-[4/5] flex flex-col justify-end shadow-xl hover:shadow-2xl transition-shadow duration-700 group cursor-default"
+                        onmousemove="updateFlashlight(event, this)">
+                        <div class="absolute top-5 right-5 animate-spin-slow opacity-20 group-hover:opacity-100 transition-opacity">
+                            <iconify-icon icon="solar:settings-minimalistic-bold-duotone" class="text-4xl text-brass-deep"></iconify-icon>
+                        </div>
+                        <div class="mb-auto">
+                            <div class="w-12 h-12 bg-ink text-paper hex-clip flex items-center justify-center text-2xl shadow-inner">
+                                <iconify-icon icon="solar:waterdrops-bold-duotone"></iconify-icon>
+                            </div>
+                        </div>
+                        <h3 class="fraunces-editorial text-3xl mb-2 group-hover:translate-x-2 transition-transform duration-300">Vitrificação</h3>
+                        <p class="text-sm text-ink/50 leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                            Componentes atômicos, hidrofóbicos por natureza — escaláveis e consistentes em todo o produto.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="p-4 border border-ink/10 bg-paper-pure hover:scale-105 transition-transform duration-300 flex flex-col items-center justify-center gap-1 reveal delay-500">
+                            <h4 class="text-2xl font-display">40+</h4>
+                            <span class="text-[10px] uppercase font-mono text-ink/40">Componentes</span>
+                        </div>
+                        <div class="p-4 border border-ink/10 bg-paper-pure hover:scale-105 transition-transform duration-300 flex flex-col items-center justify-center gap-1 reveal delay-700">
+                            <h4 class="text-2xl font-display">1.0</h4>
+                            <span class="text-[10px] uppercase font-mono text-ink/40">Versão</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Marquee divisor -->
+            <div class="border-t border-ink/10 bg-paper-soft/60 py-4 overflow-hidden">
+                <div class="animate-marquee whitespace-nowrap text-[11px] font-mono uppercase tracking-[0.3em] text-ink/40">
+                    <span class="mx-8">Polimento técnico</span><span class="mx-8 text-brass">◆</span>
+                    <span class="mx-8">Vitrificação cerâmica</span><span class="mx-8 text-brass">◆</span>
+                    <span class="mx-8">Funilaria de precisão</span><span class="mx-8 text-brass">◆</span>
+                    <span class="mx-8">Pintura OEM</span><span class="mx-8 text-brass">◆</span>
+                    <span class="mx-8">Martelinho de Ouro</span><span class="mx-8 text-brass">◆</span>
+                    <span class="mx-8">Polimento técnico</span><span class="mx-8 text-brass">◆</span>
+                    <span class="mx-8">Vitrificação cerâmica</span><span class="mx-8 text-brass">◆</span>
+                    <span class="mx-8">Funilaria de precisão</span><span class="mx-8 text-brass">◆</span>
+                    <span class="mx-8">Pintura OEM</span><span class="mx-8 text-brass">◆</span>
+                    <span class="mx-8">Martelinho de Ouro</span><span class="mx-8 text-brass">◆</span>
+                </div>
+            </div>
+
+            <!-- Scroll hint -->
+            <div class="absolute bottom-24 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2 z-20 opacity-60 pointer-events-none">
+                <span class="text-[10px] font-mono uppercase tracking-[0.3em] text-ink/50">Role para explorar</span>
+                <div class="w-px h-9 bg-ink/30 overflow-hidden relative">
+                    <div class="absolute inset-0 bg-brass animate-scroll-line"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ════════════════ 1 · TIPOGRAFIA ════════════════ -->
+        <section id="typography" class="relative z-10 border-b border-ink/10">
+            <div class="p-8 md:p-12 border-b border-ink/10 bg-paper-soft relative overflow-hidden">
+                <div class="hex-bg opacity-60"></div>
+                <span class="text-[11px] font-mono uppercase text-brass-deep block mb-2 relative">01 / Fundamentos</span>
+                <h2 class="fraunces-display text-4xl md:text-5xl relative">Tipografia</h2>
+            </div>
+
+            <!-- Famílias -->
+            <div class="grid grid-cols-1 md:grid-cols-3 border-b border-ink/10">
+                <div class="p-10 border-r border-ink/10 bg-paper-pure reveal">
+                    <span class="text-[11px] font-mono text-ink/40 mb-4 block">DISPLAY · SERIF</span>
+                    <p class="text-7xl fraunces-display mb-4">Ag</p>
+                    <p class="font-display text-xl">Fraunces <span class="text-ink/40 text-sm font-sans">— variável 9..144</span></p>
+                    <p class="text-sm text-ink/50 mt-3 leading-relaxed">Serifa óptica para títulos editoriais. <code class="font-mono text-xs">opsz 144 · SOFT 30 · WONK 1</code>. Fallback: Georgia, serif.</p>
+                </div>
+                <div class="p-10 border-r border-ink/10 bg-paper-pure reveal delay-200">
+                    <span class="text-[11px] font-mono text-ink/40 mb-4 block">PRIMÁRIA · SANS</span>
+                    <p class="text-7xl font-sans font-medium mb-4">Aa</p>
+                    <p class="font-sans text-xl">Geist <span class="text-ink/40 text-sm">— 300..900</span></p>
+                    <p class="text-sm text-ink/50 mt-3 leading-relaxed">Sans geométrica para UI e corpo de texto. <code class="font-mono text-xs">ss01, cv11</code> ativados. Fallback: Helvetica Neue.</p>
+                </div>
+                <div class="p-10 bg-paper-pure reveal delay-300">
+                    <span class="text-[11px] font-mono text-ink/40 mb-4 block">MONO · TÉCNICA</span>
+                    <p class="text-7xl font-mono font-medium mb-4">{·}</p>
+                    <p class="font-mono text-xl">JetBrains Mono</p>
+                    <p class="text-sm text-ink/50 mt-3 leading-relaxed">Labels, dados, marcadores de capítulo e código. Fallback: Menlo, Consolas.</p>
+                </div>
+            </div>
+
+            <!-- Escala -->
+            <div class="flex flex-col">
+                <!-- H1 -->
+                <div class="grid grid-cols-12 p-8 md:p-12 border-b border-ink/10 items-baseline hover:bg-paper-pure transition-colors group reveal">
+                    <div class="col-span-12 md:col-span-2 text-[11px] font-mono text-ink/40 mb-3 md:mb-0">H1 / Display</div>
+                    <div class="col-span-12 md:col-span-7">
+                        <h1 class="fraunces-display text-6xl md:text-8xl group-hover:translate-x-2 transition-transform">Atelier</h1>
+                    </div>
+                    <div class="col-span-12 md:col-span-3 text-right text-[10px] font-mono text-ink/40 leading-relaxed">
+                        Fraunces · 400 · 6rem · lh 0.86<br>tracking −0.04em · none
+                    </div>
+                </div>
+                <!-- H2 -->
+                <div class="grid grid-cols-12 p-8 md:p-12 border-b border-ink/10 items-baseline hover:bg-paper-pure transition-colors group reveal">
+                    <div class="col-span-12 md:col-span-2 text-[11px] font-mono text-ink/40 mb-3 md:mb-0">H2 / Seção</div>
+                    <div class="col-span-12 md:col-span-7">
+                        <h2 class="fraunces-display text-5xl group-hover:translate-x-2 transition-transform">Estratégia <em class="fraunces-editorial text-brass-deep">de design</em></h2>
+                    </div>
+                    <div class="col-span-12 md:col-span-3 text-right text-[10px] font-mono text-ink/40 leading-relaxed">
+                        Fraunces · 300 · 3rem · lh 1.05<br>tracking −0.04em · none
+                    </div>
+                </div>
+                <!-- H3 -->
+                <div class="grid grid-cols-12 p-8 md:p-12 border-b border-ink/10 items-baseline hover:bg-paper-pure transition-colors group reveal">
+                    <div class="col-span-12 md:col-span-2 text-[11px] font-mono text-ink/40 mb-3 md:mb-0">H3 / Card</div>
+                    <div class="col-span-12 md:col-span-7">
+                        <h3 class="text-3xl font-display font-normal tracking-tight group-hover:translate-x-2 transition-transform">Detalhamento técnico</h3>
+                    </div>
+                    <div class="col-span-12 md:col-span-3 text-right text-[10px] font-mono text-ink/40 leading-relaxed">
+                        Fraunces · 400 · 1.875rem<br>lh 1.2 · tracking −0.01em
+                    </div>
+                </div>
+                <!-- H4-H6 -->
+                <div class="grid grid-cols-12 p-8 md:p-12 border-b border-ink/10 items-baseline hover:bg-paper-pure transition-colors reveal">
+                    <div class="col-span-12 md:col-span-2 text-[11px] font-mono text-ink/40 mb-3 md:mb-0">H4 · H5 · H6</div>
+                    <div class="col-span-12 md:col-span-7 space-y-2">
+                        <h4 class="text-2xl font-sans font-semibold tracking-tight">H4 — Subtítulo de bloco</h4>
+                        <h5 class="text-xl font-sans font-medium tracking-tight">H5 — Rótulo de grupo</h5>
+                        <h6 class="text-base font-sans font-semibold uppercase tracking-[0.18em]">H6 — Eyebrow</h6>
+                    </div>
+                    <div class="col-span-12 md:col-span-3 text-right text-[10px] font-mono text-ink/40 leading-relaxed">
+                        Geist · 600/500/600<br>1.5 / 1.25 / 1rem
+                    </div>
+                </div>
+                <!-- Body -->
+                <div class="grid grid-cols-12 p-8 md:p-12 border-b border-ink/10 items-baseline hover:bg-paper-pure transition-colors reveal">
+                    <div class="col-span-12 md:col-span-2 text-[11px] font-mono text-ink/40 mb-3 md:mb-0">Body LG / MD / SM</div>
+                    <div class="col-span-12 md:col-span-7 space-y-3 max-w-2xl">
+                        <p class="text-xl font-light text-ink/70 leading-relaxed text-balance">Body Large — a essência do sistema está na adaptação: priorizamos legibilidade e respiro.</p>
+                        <p class="text-base text-ink/60 leading-relaxed">Body — texto padrão para a maior parte do conteúdo longo, com line-height confortável.</p>
+                        <p class="text-sm text-ink/50 leading-relaxed">Body Small — notas de apoio, legendas e textos auxiliares.</p>
+                    </div>
+                    <div class="col-span-12 md:col-span-3 text-right text-[10px] font-mono text-ink/40 leading-relaxed">
+                        Geist · 300/400/400<br>1.25 / 1 / .875rem · lh 1.7
+                    </div>
+                </div>
+                <!-- Caption / label -->
+                <div class="grid grid-cols-12 p-8 md:p-12 items-baseline hover:bg-paper-pure transition-colors reveal">
+                    <div class="col-span-12 md:col-span-2 text-[11px] font-mono text-ink/40 mb-3 md:mb-0">Caption / Label</div>
+                    <div class="col-span-12 md:col-span-7 flex items-center gap-4 flex-wrap">
+                        <span class="text-[11px] font-mono uppercase tracking-[0.2em] text-ink/50 border border-ink/15 px-2 py-1 rounded-sm bg-paper-soft">Status: Ótimo</span>
+                        <span class="font-cursive text-3xl text-brass-deep">Renovelli</span>
+                        <span class="text-[10px] font-mono text-ink/40">helper text · v1.0.0</span>
+                    </div>
+                    <div class="col-span-12 md:col-span-3 text-right text-[10px] font-mono text-ink/40 leading-relaxed">
+                        JetBrains · 500 · .75rem<br>tracking .2em · uppercase
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ════════════════ 2 · CORES ════════════════ -->
+        <section id="colors" class="relative z-10 border-b border-ink/10">
+            <div class="p-8 md:p-12 border-b border-ink/10 bg-paper-soft relative overflow-hidden">
+                <div class="hex-bg opacity-60"></div>
+                <span class="text-[11px] font-mono uppercase text-brass-deep block mb-2 relative">02 / Fundamentos</span>
+                <h2 class="fraunces-display text-4xl md:text-5xl relative">Sistema de cores</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-5">
+                <!-- Paper -->
+                <div class="group border-b md:border-b-0 md:border-r border-ink/10 bg-paper p-8 flex flex-col justify-between relative overflow-hidden min-h-[300px] reveal">
+                    <div class="absolute inset-0 bg-paper-pure opacity-0 group-hover:opacity-40 transition-opacity"></div>
+                    <span class="font-display text-lg relative">Superfície</span>
+                    <div class="font-mono text-[11px] text-ink/50 relative space-y-0.5">
+                        <span class="block">HEX #EAEAE5</span>
+                        <span class="block">RGB 234 234 229</span>
+                        <span class="block">HSL 60° 11% 91%</span>
+                        <span class="block mt-3 px-2 py-1 border border-ink/25 rounded-full w-max">neutral · background</span>
+                    </div>
+                </div>
+                <!-- Ink -->
+                <div class="group border-b md:border-b-0 md:border-r border-ink/10 bg-ink p-8 flex flex-col justify-between text-paper relative overflow-hidden min-h-[300px] reveal delay-100">
+                    <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-10 transition-opacity"></div>
+                    <span class="font-display text-lg relative">Tinta / Onyx</span>
+                    <div class="font-mono text-[11px] text-paper/60 relative space-y-0.5">
+                        <span class="block">HEX #0A0E12</span>
+                        <span class="block">RGB 10 14 18</span>
+                        <span class="block">HSL 210° 29% 5%</span>
+                        <span class="block mt-3 px-2 py-1 border border-white/20 rounded-full w-max">primary · text · AAA</span>
+                    </div>
+                </div>
+                <!-- Brass -->
+                <div class="group border-b md:border-b-0 md:border-r border-ink/10 bg-brass p-8 flex flex-col justify-between text-ink relative overflow-hidden min-h-[300px] reveal delay-200">
+                    <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-25 transition-opacity"></div>
+                    <span class="font-display text-lg relative">Brass / Acento</span>
+                    <div class="font-mono text-[11px] text-ink/70 relative space-y-0.5">
+                        <span class="block">HEX #C9A36A</span>
+                        <span class="block">RGB 201 163 106</span>
+                        <span class="block">HSL 36° 47% 60%</span>
+                        <span class="block mt-3 px-2 py-1 border border-ink/25 rounded-full w-max">accent · decorative</span>
+                    </div>
+                </div>
+                <!-- Brass deep -->
+                <div class="group border-b md:border-b-0 md:border-r border-ink/10 bg-brass-deep p-8 flex flex-col justify-between text-paper relative overflow-hidden min-h-[300px] reveal delay-300">
+                    <div class="absolute inset-0 bg-white opacity-0 group-hover:opacity-15 transition-opacity"></div>
+                    <span class="font-display text-lg relative">Brass Deep</span>
+                    <div class="font-mono text-[11px] text-paper/70 relative space-y-0.5">
+                        <span class="block">HEX #8E6E3E</span>
+                        <span class="block">RGB 142 110 62</span>
+                        <span class="block">HSL 36° 39% 40%</span>
+                        <span class="block mt-3 px-2 py-1 border border-white/20 rounded-full w-max">accent · text-on-light · AA</span>
+                    </div>
+                </div>
+                <!-- White -->
+                <div class="group bg-paper-pure p-8 flex flex-col justify-between text-ink relative overflow-hidden min-h-[300px] reveal delay-500">
+                    <div class="absolute inset-0 bg-paper-soft opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                    <span class="font-display text-lg relative">Pure</span>
+                    <div class="font-mono text-[11px] text-ink/40 relative space-y-0.5">
+                        <span class="block">HEX #FFFFFF</span>
+                        <span class="block">RGB 255 255 255</span>
+                        <span class="block">HSL 0° 0% 100%</span>
+                        <span class="block mt-3 px-2 py-1 border border-ink/15 rounded-full w-max">surface · cards</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Gradiente, opacidade, semântico -->
+            <div class="grid grid-cols-1 md:grid-cols-2 border-t border-ink/10">
+                <div class="p-10 md:p-12 border-b md:border-b-0 md:border-r border-ink/10 bg-paper-soft reveal">
+                    <span class="text-[11px] font-mono uppercase text-ink/40 mb-4 block">Gradientes & participação</span>
+                    <div class="w-full h-24 bg-gradient-to-r from-ink via-brass-deep to-brass rounded-lg shadow-inner flex items-center justify-center mb-4">
+                        <span class="mix-blend-difference text-white font-mono text-[11px] uppercase tracking-[0.2em]">ink → brass-deep → brass</span>
+                    </div>
+                    <div class="w-full h-16 bg-gradient-to-r from-paper via-brass-soft to-paper rounded-lg shadow-inner flex items-center justify-center">
+                        <span class="text-ink/50 font-mono text-[11px] uppercase tracking-[0.2em]">paper → brass-soft → paper</span>
+                    </div>
+                </div>
+                <div class="p-10 md:p-12 bg-paper-pure reveal delay-200">
+                    <span class="text-[11px] font-mono uppercase text-ink/40 mb-4 block">Opacidade & feedback semântico</span>
+                    <div class="flex gap-2 mb-5">
+                        <div class="flex-1 h-10 rounded bg-brass" title="100%"></div>
+                        <div class="flex-1 h-10 rounded bg-brass/70" title="70%"></div>
+                        <div class="flex-1 h-10 rounded bg-brass/40" title="40%"></div>
+                        <div class="flex-1 h-10 rounded bg-brass/15" title="15%"></div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <span class="text-[10px] font-mono uppercase text-ink/40 block mb-1">Erro · "Antes"</span>
+                            <div class="h-11 bg-oxblood rounded flex items-center px-3 text-white text-[11px] font-mono">#8B2D2D · oxblood</div>
+                        </div>
+                        <div>
+                            <span class="text-[10px] font-mono uppercase text-ink/40 block mb-1">Highlight · LED</span>
+                            <div class="h-11 bg-led rounded flex items-center px-3 text-white text-[11px] font-mono">#3F6B8C · led</div>
+                        </div>
+                    </div>
+                    <p class="text-[11px] text-ink/45 mt-5 leading-relaxed font-mono">
+                        Regras: ink em texto (AAA s/ paper) · brass-deep p/ texto-acento (AA) ·
+                        brass só decorativo/borda/hover · disabled = ink/30.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ════════════════ 3 · COMPONENTES ════════════════ -->
+        <section id="components" class="relative z-10 border-b border-ink/10 bg-grid">
+            <div class="p-8 md:p-12 border-b border-ink/10 bg-paper-soft/90 backdrop-blur-sm sticky top-[73px] z-20">
+                <span class="text-[11px] font-mono uppercase text-brass-deep block mb-2">03 / Arquitetura</span>
+                <h2 class="fraunces-display text-4xl md:text-5xl">Componentes de UI</h2>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2">
+                <!-- Botões & inputs -->
+                <div class="border-b lg:border-b-0 lg:border-r border-ink/10 p-8 md:p-14 space-y-14">
+                    <div class="reveal">
+                        <h3 class="text-[11px] font-mono uppercase tracking-[0.2em] text-ink/40 mb-7">Botões</h3>
+                        <div class="flex flex-wrap gap-5 items-center">
+                            <button class="px-6 py-3 bg-ink text-paper rounded-sm text-sm font-medium hover:bg-ink-800 hover:-translate-y-0.5 transition-all shadow-lg shadow-ink/10 flex items-center gap-2 group">
+                                Ação primária
+                                <iconify-icon icon="solar:arrow-right-linear" class="group-hover:translate-x-1 transition-transform"></iconify-icon>
+                            </button>
+                            <button class="px-6 py-3 border border-ink text-ink rounded-sm text-sm font-medium hover:bg-ink hover:text-paper transition-all">Secundária</button>
+                            <a class="cta-btn">CTA Fill</a>
+                            <button class="px-4 py-2 text-ink/50 hover:text-ink text-sm font-medium transition-colors">Cancelar</button>
+                            <button class="btn-beam p-[1.5px] rounded-full">
+                                <span class="btn-beam-content px-5 py-2 rounded-full text-xs font-mono">Beam · IA</span>
+                            </button>
+                            <button class="group relative overflow-hidden rounded-full bg-ink text-paper px-6 py-3 text-sm font-medium">
+                                <span class="relative z-10">Shimmer</span>
+                                <span class="absolute inset-0 overflow-hidden rounded-full">
+                                    <span class="absolute top-0 left-0 h-full w-full bg-gradient-to-r from-transparent via-white/25 to-transparent animate-shimmer"></span>
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="reveal delay-200">
+                        <h3 class="text-[11px] font-mono uppercase tracking-[0.2em] text-ink/40 mb-7">Inputs</h3>
+                        <div class="space-y-6 max-w-md">
+                            <div class="group">
+                                <label class="block text-[11px] font-mono uppercase text-ink/50 mb-2 group-focus-within:text-brass-deep transition-colors">E-mail</label>
+                                <div class="relative">
+                                    <input type="email" placeholder="voce@exemplo.com"
+                                        class="w-full bg-paper-pure border border-ink/15 p-3 rounded-sm outline-none focus:border-brass focus:ring-1 focus:ring-brass transition-all">
+                                    <iconify-icon icon="solar:letter-linear" class="absolute right-3 top-3.5 text-ink/40"></iconify-icon>
+                                </div>
+                            </div>
+                            <div class="relative">
+                                <input type="text" placeholder="Buscar componentes…"
+                                    class="w-full bg-paper-soft border-none p-3 pl-10 rounded-full outline-none focus:bg-paper-pure focus:ring-2 focus:ring-brass/30 transition-all">
+                                <iconify-icon icon="solar:magnifer-linear" class="absolute left-3 top-3.5 text-ink/50"></iconify-icon>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="reveal delay-300">
+                        <h3 class="text-[11px] font-mono uppercase tracking-[0.2em] text-ink/40 mb-7">Seleção</h3>
+                        <div class="flex gap-8 items-center">
+                            <label class="flex items-center gap-3 cursor-pointer group">
+                                <div class="w-5 h-5 border border-ink/40 rounded-sm flex items-center justify-center group-hover:border-brass transition-colors">
+                                    <div class="w-3 h-3 bg-brass-deep opacity-0 checkbox-check transition-opacity"></div>
+                                </div>
+                                <span class="text-sm text-ink/60">Checkbox</span>
+                                <input type="checkbox" class="hidden" onclick="this.parentNode.querySelector('.checkbox-check').classList.toggle('opacity-0')">
+                            </label>
+                            <label class="flex items-center gap-3 cursor-pointer">
+                                <div class="relative w-10 h-6 bg-ink/20 rounded-full transition-colors toggle-bg">
+                                    <div class="absolute left-1 top-1 w-4 h-4 bg-paper-pure rounded-full transition-transform toggle-dot shadow-sm"></div>
+                                </div>
+                                <span class="text-sm text-ink/60">Toggle</span>
+                                <input type="checkbox" class="hidden" onclick="this.parentNode.querySelector('.toggle-bg').classList.toggle('bg-brass'); this.parentNode.querySelector('.toggle-dot').classList.toggle('translate-x-4')">
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Navbar mini -->
+                    <div class="reveal delay-300">
+                        <h3 class="text-[11px] font-mono uppercase tracking-[0.2em] text-ink/40 mb-7">Navbar</h3>
+                        <div class="border border-ink/10 rounded-lg bg-paper-pure/70 backdrop-blur-md flex items-center justify-between px-5 py-3">
+                            <span class="font-display italic text-base">Renovelli</span>
+                            <div class="hidden sm:flex gap-5 text-[10px] font-mono uppercase tracking-[0.2em] text-ink/50">
+                                <span class="hover:text-ink transition-colors cursor-pointer">Serviços</span>
+                                <span class="hover:text-ink transition-colors cursor-pointer">Resultados</span>
+                                <span class="hover:text-ink transition-colors cursor-pointer">Contato</span>
+                            </div>
+                            <button class="px-3 py-1.5 bg-ink text-paper rounded-full text-[10px] font-mono uppercase tracking-widest hover:bg-brass-deep transition-colors">WhatsApp</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Cards & complexos -->
+                <div class="p-8 md:p-14 bg-paper-soft space-y-8">
+                    <h3 class="text-[11px] font-mono uppercase tracking-[0.2em] text-ink/40">Cards & containers</h3>
+
+                    <!-- Glass card -->
+                    <div class="p-8 rounded-xl glass-panel shadow-lg hover:shadow-xl transition-all duration-500 group reveal">
+                        <div class="w-12 h-12 bg-ink text-paper hex-clip flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                            <iconify-icon icon="solar:cup-star-bold-duotone" class="text-xl"></iconify-icon>
+                        </div>
+                        <h4 class="text-xl font-display mb-2">Glassmorphism</h4>
+                        <p class="text-sm text-ink/50 leading-relaxed mb-5">backdrop-blur sobre superfície clara — profundidade sem perder legibilidade.</p>
+                        <div class="flex items-center gap-4 text-[11px] font-mono text-ink/40"><span>#UI</span><span>#ATELIER</span></div>
+                    </div>
+
+                    <!-- Media card (ken burns) -->
+                    <div class="group relative overflow-hidden rounded-lg bg-ink aspect-video flex items-end reveal delay-200 scanline">
+                        <img src="../public/images/before-after/polimento-after.webp"
+                            class="absolute inset-0 w-full h-full object-cover opacity-70 group-hover:opacity-50 grayscale group-hover:grayscale-0 transition-all duration-700 group-hover:scale-105" alt="">
+                        <div class="relative z-10 p-6 w-full">
+                            <span class="inline-block px-2 py-1 bg-white/10 backdrop-blur text-white text-[10px] font-mono uppercase mb-2">Em destaque</span>
+                            <h4 class="text-white font-display text-2xl mb-1 translate-y-2 group-hover:translate-y-0 transition-transform duration-300">Polimento técnico</h4>
+                            <p class="text-paper/70 text-sm opacity-0 group-hover:opacity-100 transition-opacity delay-100">Correção em três etapas · brilho profundo restaurado.</p>
+                        </div>
+                    </div>
+
+                    <!-- Tooltips, badges, modal trigger -->
+                    <div class="flex flex-wrap gap-4 items-center justify-center p-8 border border-dashed border-ink/20 rounded-lg reveal delay-300">
+                        <div class="relative group cursor-help">
+                            <span class="px-3 py-1 bg-ink/10 rounded text-xs font-medium text-ink/70">Tooltip</span>
+                            <div class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1 bg-ink text-paper text-xs rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+                                Informação contextual
+                                <div class="absolute top-full left-1/2 -translate-x-1/2 border-4 border-transparent border-t-ink"></div>
+                            </div>
+                        </div>
+                        <span class="px-2.5 py-1 rounded-full border border-ink/25 text-[10px] uppercase font-bold tracking-wider text-ink/50">Badge</span>
+                        <span class="px-2.5 py-1 rounded-full bg-brass/20 text-brass-deep text-[10px] uppercase font-bold tracking-wider">Ativo</span>
+                        <span class="px-2.5 py-1 rounded-full bg-oxblood/15 text-oxblood text-[10px] uppercase font-bold tracking-wider">Antes</span>
+                        <div class="flex -space-x-2">
+                            <div class="w-8 h-8 rounded-full bg-ink/30 border-2 border-paper-pure"></div>
+                            <div class="w-8 h-8 rounded-full bg-ink/50 border-2 border-paper-pure"></div>
+                            <div class="w-8 h-8 rounded-full bg-brass border-2 border-paper-pure flex items-center justify-center text-[10px] text-ink font-bold">+9</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal + data -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 border-t border-ink/10">
+                <div class="border-b lg:border-b-0 lg:border-r border-ink/10 p-8 md:p-14 bg-paper-soft flex flex-col justify-center reveal">
+                    <h3 class="text-[11px] font-mono uppercase tracking-[0.2em] text-ink/40 mb-7">Modal & overlay</h3>
+                    <div class="relative h-64 bg-ink/10 rounded-lg overflow-hidden flex items-center justify-center border border-ink/10 group cursor-default shadow-inner">
+                        <div class="absolute inset-0 bg-ink/10 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                        <div class="relative glass-panel p-6 rounded-lg shadow-2xl w-64 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-100">
+                            <div class="flex justify-between items-center mb-4">
+                                <span class="font-display text-lg">Confirmar</span>
+                                <iconify-icon icon="solar:close-circle-linear" class="text-ink/40"></iconify-icon>
+                            </div>
+                            <p class="text-xs text-ink/50 mb-4 leading-relaxed">Overlay glassmórfico revelado no hover, com surgimento suave.</p>
+                            <div class="flex gap-2">
+                                <button class="flex-1 px-3 py-2 bg-ink text-paper text-xs rounded-sm hover:bg-brass-deep transition-colors">Confirmar</button>
+                                <button class="flex-1 px-3 py-2 border border-ink/20 text-ink/70 text-xs rounded-sm hover:bg-paper-pure transition-colors">Cancelar</button>
+                            </div>
+                        </div>
+                        <span class="absolute text-[11px] font-mono uppercase tracking-[0.2em] text-ink/40 group-hover:opacity-0 transition-opacity">Hover para ver o modal</span>
+                    </div>
+                </div>
+                <div class="p-8 md:p-14 bg-paper-pure flex flex-col justify-center reveal delay-200">
+                    <h3 class="text-[11px] font-mono uppercase tracking-[0.2em] text-ink/40 mb-7">Visualização de dados</h3>
+                    <div class="p-6 border border-ink/10 rounded-lg bg-paper-pure shadow-sm hover:shadow-md transition-shadow">
+                        <div class="flex justify-between items-end mb-6">
+                            <div>
+                                <span class="text-[10px] uppercase font-mono text-ink/40 block mb-1">Satisfação</span>
+                                <span class="text-3xl font-display">98,5%</span>
+                            </div>
+                            <div class="text-brass-deep text-xs font-mono flex items-center gap-1 bg-brass/15 px-2 py-1 rounded-full border border-brass/30">
+                                +12 <iconify-icon icon="solar:graph-up-linear"></iconify-icon>
+                            </div>
+                        </div>
+                        <svg viewBox="0 0 100 40" class="w-full h-24 overflow-visible">
+                            <defs>
+                                <linearGradient id="cg" x1="0" x2="0" y1="0" y2="1">
+                                    <stop offset="0%" stop-color="#C9A36A" stop-opacity="0.35" />
+                                    <stop offset="100%" stop-color="#C9A36A" stop-opacity="0" />
+                                </linearGradient>
+                            </defs>
+                            <path d="M0 35 C 10 35,10 20,20 20 C 30 20,30 30,40 30 C 50 30,50 5,60 5 C 70 5,70 25,80 25 C 90 25,90 10,100 15 V 40 H 0 Z" fill="url(#cg)" />
+                            <path d="M0 35 C 10 35,10 20,20 20 C 30 20,30 30,40 30 C 50 30,50 5,60 5 C 70 5,70 25,80 25 C 90 25,90 10,100 15" fill="none" stroke="#8E6E3E" stroke-width="1.5" vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round" />
+                            <circle cx="60" cy="5" r="3" fill="#EAEAE5" stroke="#8E6E3E" stroke-width="2" />
+                            <circle cx="100" cy="15" r="3" fill="#C9A36A" />
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ════════════════ 4 · ÍCONES ════════════════ -->
+        <section id="icons" class="relative z-10 border-b border-ink/10 bg-paper-pure">
+            <div class="p-8 md:p-12 border-b border-ink/10 bg-paper-soft relative overflow-hidden">
+                <div class="hex-bg opacity-60"></div>
+                <span class="text-[11px] font-mono uppercase text-brass-deep block mb-2 relative">04 / Ativos</span>
+                <h2 class="fraunces-display text-4xl md:text-5xl relative">Iconografia <span class="text-base font-sans text-ink/40 align-middle ml-2">Solar · duotone & linear</span></h2>
+            </div>
+            <div class="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-8 gap-px bg-ink/10">
+                <!-- ícones automotivos -->
+                <div class="bg-paper-pure p-8 aspect-square flex flex-col items-center justify-center gap-3 hover:bg-paper-soft transition-colors group">
+                    <iconify-icon icon="solar:wheel-bold-duotone" class="text-3xl text-ink/40 group-hover:text-brass-deep group-hover:scale-110 transition-all"></iconify-icon>
+                    <span class="text-[10px] font-mono text-ink/40 opacity-0 group-hover:opacity-100 transition-opacity">roda</span>
+                </div>
+                <div class="bg-paper-pure p-8 aspect-square flex flex-col items-center justify-center gap-3 hover:bg-paper-soft transition-colors group">
+                    <iconify-icon icon="solar:waterdrops-bold-duotone" class="text-3xl text-ink/40 group-hover:text-brass-deep group-hover:scale-110 transition-all"></iconify-icon>
+                    <span class="text-[10px] font-mono text-ink/40 opacity-0 group-hover:opacity-100 transition-opacity">vitri</span>
+                </div>
+                <div class="bg-paper-pure p-8 aspect-square flex flex-col items-center justify-center gap-3 hover:bg-paper-soft transition-colors group">
+                    <iconify-icon icon="solar:magic-stick-3-bold-duotone" class="text-3xl text-ink/40 group-hover:text-brass-deep group-hover:scale-110 transition-all"></iconify-icon>
+                    <span class="text-[10px] font-mono text-ink/40 opacity-0 group-hover:opacity-100 transition-opacity">polir</span>
+                </div>
+                <div class="bg-paper-pure p-8 aspect-square flex flex-col items-center justify-center gap-3 hover:bg-paper-soft transition-colors group">
+                    <iconify-icon icon="solar:palette-bold-duotone" class="text-3xl text-ink/40 group-hover:text-brass-deep group-hover:scale-110 transition-all"></iconify-icon>
+                    <span class="text-[10px] font-mono text-ink/40 opacity-0 group-hover:opacity-100 transition-opacity">pintura</span>
+                </div>
+                <div class="bg-paper-pure p-8 aspect-square flex flex-col items-center justify-center gap-3 hover:bg-paper-soft transition-colors group">
+                    <iconify-icon icon="solar:shield-check-bold-duotone" class="text-3xl text-ink/40 group-hover:text-brass-deep group-hover:scale-110 transition-all"></iconify-icon>
+                    <span class="text-[10px] font-mono text-ink/40 opacity-0 group-hover:opacity-100 transition-opacity">proteção</span>
+                </div>
+                <div class="bg-paper-pure p-8 aspect-square flex flex-col items-center justify-center gap-3 hover:bg-paper-soft transition-colors group">
+                    <iconify-icon icon="solar:hammer-bold-duotone" class="text-3xl text-ink/40 group-hover:text-brass-deep group-hover:scale-110 transition-all"></iconify-icon>
+                    <span class="text-[10px] font-mono text-ink/40 opacity-0 group-hover:opacity-100 transition-opacity">funilaria</span>
+                </div>
+                <div class="bg-paper-pure p-8 aspect-square flex flex-col items-center justify-center gap-3 hover:bg-paper-soft transition-colors group">
+                    <iconify-icon icon="solar:diamond-bold-duotone" class="text-3xl text-ink/40 group-hover:text-brass-deep group-hover:scale-110 transition-all"></iconify-icon>
+                    <span class="text-[10px] font-mono text-ink/40 opacity-0 group-hover:opacity-100 transition-opacity">premium</span>
+                </div>
+                <div class="bg-paper-pure p-8 aspect-square flex flex-col items-center justify-center gap-3 hover:bg-paper-soft transition-colors group">
+                    <iconify-icon icon="solar:chat-round-like-bold-duotone" class="text-3xl text-ink/40 group-hover:text-brass-deep group-hover:scale-110 transition-all"></iconify-icon>
+                    <span class="text-[10px] font-mono text-ink/40 opacity-0 group-hover:opacity-100 transition-opacity">contato</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ════════════════ 5 · MOVIMENTO ════════════════ -->
+        <section id="motion" class="relative z-10 border-b border-ink/10 overflow-hidden">
+            <div class="p-8 md:p-12 border-b border-ink/10 bg-paper-soft relative overflow-hidden">
+                <div class="hex-bg opacity-60"></div>
+                <span class="text-[11px] font-mono uppercase text-brass-deep block mb-2 relative">05 / Interação</span>
+                <h2 class="fraunces-display text-4xl md:text-5xl relative">Primitivas de movimento</h2>
+            </div>
+
+            <!-- Marquee técnico -->
+            <div class="py-10 border-b border-ink/10 bg-paper-soft/60 marquee-container">
+                <div class="animate-marquee whitespace-nowrap text-sm font-mono uppercase tracking-[0.25em] text-ink/40">
+                    <span class="mx-8">easing cubic-bezier(.16,1,.3,1)</span><span class="mx-8 text-brass">•</span>
+                    <span class="mx-8">duração 1.2s</span><span class="mx-8 text-brass">•</span>
+                    <span class="mx-8">blur-in</span><span class="mx-8 text-brass">•</span>
+                    <span class="mx-8">stagger 100ms</span><span class="mx-8 text-brass">•</span>
+                    <span class="mx-8">easing cubic-bezier(.16,1,.3,1)</span><span class="mx-8 text-brass">•</span>
+                    <span class="mx-8">duração 1.2s</span><span class="mx-8 text-brass">•</span>
+                    <span class="mx-8">blur-in</span><span class="mx-8 text-brass">•</span>
+                    <span class="mx-8">stagger 100ms</span><span class="mx-8 text-brass">•</span>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4">
+                <!-- Reveal up -->
+                <div class="p-12 border-b md:border-b-0 md:border-r border-ink/10 bg-paper flex flex-col items-center justify-center min-h-[300px] group">
+                    <span class="text-[11px] font-mono uppercase text-ink/40 mb-8">.reveal-up</span>
+                    <div class="w-28 h-28 bg-ink hex-clip shadow-xl translate-y-16 opacity-0 blur-md group-hover:opacity-100 group-hover:translate-y-0 group-hover:blur-0 transition-all duration-700 ease-out flex items-center justify-center text-paper">
+                        <iconify-icon icon="solar:arrow-up-linear" class="text-3xl"></iconify-icon>
+                    </div>
+                </div>
+                <!-- Hover scale + glow -->
+                <div class="p-12 border-b md:border-b-0 md:border-r border-ink/10 bg-paper flex flex-col items-center justify-center min-h-[300px] cursor-pointer group">
+                    <span class="text-[11px] font-mono uppercase text-ink/40 mb-8">glow + scale</span>
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-brass rounded-full blur-2xl opacity-0 group-hover:opacity-50 transition-opacity duration-500"></div>
+                        <div class="w-28 h-28 bg-paper-pure border border-ink/10 rounded-full flex items-center justify-center text-ink group-hover:scale-110 transition-transform duration-500">
+                            <iconify-icon icon="solar:cursor-bold-duotone" class="text-3xl"></iconify-icon>
+                        </div>
+                    </div>
+                </div>
+                <!-- Beam -->
+                <div class="p-12 border-b md:border-b-0 md:border-r border-ink/10 bg-paper flex flex-col items-center justify-center min-h-[300px] group">
+                    <span class="text-[11px] font-mono uppercase text-ink/40 mb-8">conic beam</span>
+                    <div class="relative group/b">
+                        <div class="absolute -inset-[2px] rounded-full overflow-hidden opacity-0 group-hover/b:opacity-100 transition duration-500">
+                            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300%] h-[300%] bg-[conic-gradient(from_0deg,transparent_0_320deg,#C9A36A_360deg)] animate-spin-beam"></div>
+                        </div>
+                        <button class="relative bg-ink text-paper rounded-full px-7 py-3 text-sm font-medium ring-1 ring-white/10">Hover-me</button>
+                    </div>
+                </div>
+                <!-- State change loader -->
+                <div class="p-12 bg-paper flex flex-col items-center justify-center min-h-[300px] group">
+                    <span class="text-[11px] font-mono uppercase text-ink/40 mb-8">state change</span>
+                    <div class="w-32 h-12 border border-ink/30 rounded-sm relative overflow-hidden flex items-center justify-center">
+                        <span class="text-xs font-mono font-bold uppercase group-hover:opacity-0 transition-opacity">Load</span>
+                        <div class="absolute inset-0 bg-brass-deep -translate-x-full group-hover:translate-x-0 transition-transform duration-[1.6s] ease-in-out"></div>
+                        <iconify-icon icon="line-md:loading-loop" class="text-paper absolute opacity-0 group-hover:opacity-100 transition-opacity delay-300 text-lg"></iconify-icon>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Text reveal mascarado -->
+            <div class="p-12 md:p-20 border-t border-ink/10 text-center bg-paper-pure">
+                <span class="text-[11px] font-mono uppercase text-ink/40 block mb-8">Masked text reveal · scroll</span>
+                <h2 class="fraunces-display text-6xl md:text-8xl">
+                    <span class="text-reveal-wrapper"><span class="text-reveal-content">Movimento</span></span>
+                    <span class="text-reveal-wrapper"><span class="text-reveal-content delay-200 fraunces-editorial text-outline brass">cinematográfico</span></span>
+                </h2>
+            </div>
+        </section>
+
+        <!-- ════════════════ FOOTER ════════════════ -->
+        <footer class="bg-ink text-paper/50 py-24 px-8 md:px-12 relative overflow-hidden">
+            <div class="absolute bottom-0 left-0 w-full overflow-hidden pointer-events-none">
+                <h1 class="text-[20vw] font-display italic leading-none whitespace-nowrap text-transparent" style="-webkit-text-stroke: 1px rgba(242,241,237,0.07);">RENOVELLI</h1>
+            </div>
+            <div class="absolute top-0 right-0 w-[420px] h-[420px] bg-brass/10 rounded-full blur-3xl animate-float pointer-events-none"></div>
+
+            <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 relative z-10">
+                <div class="col-span-1 md:col-span-2">
+                    <h3 class="text-2xl font-display italic text-paper mb-5">Sistema «Atelier»</h3>
+                    <p class="max-w-sm font-light leading-relaxed text-paper/55">
+                        A linguagem visual da Renovelli — premium, robusta e distintamente humana.
+                        Lettering vazado, superfície clara, brass como único acento quente.
+                    </p>
+                    <div class="mt-8 flex gap-3">
+                        <a class="w-9 h-9 border border-white/15 rounded-full flex items-center justify-center hover:bg-brass hover:text-ink hover:border-brass transition-colors" href="#"><iconify-icon icon="solar:instagram-linear"></iconify-icon></a>
+                        <a class="w-9 h-9 border border-white/15 rounded-full flex items-center justify-center hover:bg-brass hover:text-ink hover:border-brass transition-colors" href="#"><iconify-icon icon="solar:chat-round-dots-linear"></iconify-icon></a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-[11px] font-mono uppercase tracking-[0.2em] text-paper/40 mb-6">Fundamentos</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#typography" class="hover:text-brass transition-colors">Tipografia</a></li>
+                        <li><a href="#colors" class="hover:text-brass transition-colors">Cores</a></li>
+                        <li><a href="#motion" class="hover:text-brass transition-colors">Movimento</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-[11px] font-mono uppercase tracking-[0.2em] text-paper/40 mb-6">Recursos</h4>
+                    <ul class="space-y-3 text-sm">
+                        <li><a href="#components" class="hover:text-brass transition-colors">Componentes</a></li>
+                        <li><a href="#icons" class="hover:text-brass transition-colors">Ícones</a></li>
+                        <li><a href="#" class="hover:text-brass transition-colors">Changelog</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="max-w-7xl mx-auto mt-20 pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-3 text-[11px] font-mono text-paper/40">
+                <span>© 2026 Renovelli Estética Automotiva · Santo André, SP</span>
+                <span>Atelier DS · v1.0.0</span>
+            </div>
+        </footer>
+    </div>
+
+    <!-- ════════════════ SCRIPTS ════════════════ -->
+    <script>
+        gsap.registerPlugin(ScrollTrigger);
+
+        /* ── Flashlight ── */
+        function updateFlashlight(e, card) {
+            const r = card.getBoundingClientRect();
+            card.style.setProperty('--mouse-x', `${e.clientX - r.left}px`);
+            card.style.setProperty('--mouse-y', `${e.clientY - r.top}px`);
+        }
+
+        /* ── Cursor customizado ── */
+        const dot = document.getElementById('cursorDot');
+        const ring = document.getElementById('cursorRing');
+        let rx = 0, ry = 0, mx = 0, my = 0;
+        window.addEventListener('mousemove', e => {
+            mx = e.clientX; my = e.clientY;
+            dot.style.transform = `translate(${mx}px, ${my}px) translate(-50%,-50%)`;
+        });
+        (function loop() {
+            rx += (mx - rx) * 0.18; ry += (my - ry) * 0.18;
+            ring.style.transform = `translate(${rx}px, ${ry}px) translate(-50%,-50%)`;
+            requestAnimationFrame(loop);
+        })();
+        document.querySelectorAll('a,button,[onmousemove],.cursor-pointer,input').forEach(el => {
+            el.addEventListener('mouseenter', () => { ring.style.width = '60px'; ring.style.height = '60px'; ring.style.borderColor = 'rgba(201,163,106,.7)'; });
+            el.addEventListener('mouseleave', () => { ring.style.width = '38px'; ring.style.height = '38px'; ring.style.borderColor = 'rgba(10,14,18,.4)'; });
+        });
+
+        /* ── Reveal observer (reveal / reveal-up / reveal-zoom / text-reveal) ── */
+        const io = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active', 'reveal-active');
+                    entry.target.querySelectorAll('.reveal, .reveal-up, .reveal-zoom').forEach((c, i) => {
+                        setTimeout(() => c.classList.add('active'), i * 90);
+                    });
+                }
+            });
+        }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+        document.querySelectorAll('.reveal, .reveal-up, .reveal-zoom, .text-reveal-wrapper, section').forEach(el => io.observe(el));
+
+        /* ── Hero: dispara reveals + text-reveal imediatamente ── */
+        window.addEventListener('DOMContentLoaded', () => {
+            const hero = document.getElementById('hero');
+            hero.classList.add('reveal-active');
+            hero.querySelectorAll('.reveal, .reveal-up').forEach((el, i) => setTimeout(() => el.classList.add('active'), 120 + i * 110));
+
+            /* Carousel ken burns no hero */
+            const slides = document.querySelectorAll('[data-hero-slide]');
+            let cur = 0;
+            if (slides.length) setInterval(() => {
+                slides[cur].classList.remove('active');
+                cur = (cur + 1) % slides.length;
+                slides[cur].classList.add('active');
+            }, 5200);
+        });
+
+        /* ── Parallax + blur-out do hero no scroll ── */
+        gsap.to('#hero .parallax-img', {
+            yPercent: 14, ease: 'none',
+            scrollTrigger: { trigger: '#hero', start: 'top top', end: 'bottom top', scrub: true }
+        });
+        gsap.to('#hero h1, #hero p, #hero .cta-btn', {
+            y: -50, opacity: 0, filter: 'blur(12px)', stagger: 0.04,
+            scrollTrigger: { trigger: '#hero', start: 'top top', end: '40% top', scrub: true }
+        });
+
+        /* ── Navbar auto-hide ── */
+        let lastY = 0;
+        const nav = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            const y = window.scrollY;
+            nav.style.transform = (y > lastY && y > 220) ? 'translateY(-100%)' : 'translateY(0)';
+            lastY = y;
+        }, { passive: true });
+    </script>
+</body>
+
+</html>

@@ -7,3 +7,6 @@ coverage/
 .env*
 !.env.example
 .playwright-mcp/
+
+# Local design references (43MB, contains its own nested .git)
+.reference/
