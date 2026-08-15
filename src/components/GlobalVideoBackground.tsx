@@ -34,14 +34,14 @@ export function GlobalVideoBackground() {
   const scale = useTransform(progress, [0, 1], [1.02, 1.18]);
 
   // Scroll-mapped background presence (inverse of overlay darkness).
-  // 0–18%   hero, full strength
-  // 18–60%  services + results, heavily dimmed (content first)
-  // 60–82%  FAQ, slight presence
-  // 82–100% CTA, resurfaces toward the end
+  // 0–15%   hero: cinematic atmospheric presence
+  // 15–70%  services & results: deep dimming for peak text legibility
+  // 70–85%  FAQ: clean high-contrast surface
+  // 85–100% CTA: gentle atelier glow resurfacing
   const overlayOpacity = useTransform(
     progress,
-    [0, 0.18, 0.45, 0.65, 0.82, 1],
-    [0.4, 0.55, 0.86, 0.88, 0.7, 0.5]
+    [0, 0.15, 0.35, 0.7, 0.85, 1],
+    [0.45, 0.65, 0.90, 0.92, 0.85, 0.62]
   );
 
   return (

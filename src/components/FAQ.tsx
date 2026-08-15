@@ -62,17 +62,17 @@ export function FAQ() {
         <div className="mt-16 md:mt-24 grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
           {/* Left index column */}
           <div className="md:col-span-3 md:sticky md:top-32 md:self-start">
-            <div className="font-mono text-[11px] tracking-[2px] uppercase text-[var(--color-text-muted)] mb-3">
-              Índice
+            <div className="font-mono text-[11px] tracking-[2.5px] uppercase font-semibold text-[var(--color-brass)] mb-4">
+              Tópicos Principais
             </div>
             <div className="flex flex-col gap-2">
               {faqs.map((faq, i) => (
                 <button
                   key={i}
                   onClick={() => setActiveIndex(i)}
-                  className={`text-left font-mono text-[12px] tracking-[1.5px] uppercase py-2 border-l-2 pl-3 transition-all duration-300 ${
+                  className={`text-left font-mono text-[11.5px] tracking-[1.5px] uppercase py-2.5 border-l-2 pl-3.5 transition-all duration-300 cursor-pointer ${
                     activeIndex === i
-                      ? "border-[var(--color-brass)] text-[var(--color-text)]"
+                      ? "border-[var(--color-brass)] text-[var(--color-text)] font-semibold bg-white/5"
                       : "border-[var(--color-border)] text-[var(--color-text-muted)] hover:text-[var(--color-text)] hover:border-[var(--color-text-muted)]"
                   }`}
                 >
@@ -83,37 +83,39 @@ export function FAQ() {
             </div>
           </div>
 
-          {/* Right list */}
-          <div className="md:col-span-9 flex flex-col">
+          {/* Right list in atelier card container */}
+          <div className="md:col-span-9 flex flex-col atelier-card p-6 md:p-8 rounded-xl">
             {faqs.map((faq, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-10%" }}
-                transition={{ duration: 0.6, delay: i * 0.06 }}
-                className="border-b border-[var(--color-border)]"
+                viewport={{ once: true, margin: "-5%" }}
+                transition={{ duration: 0.5, delay: i * 0.05 }}
+                className={`border-b border-[var(--color-border)] last:border-b-0 ${
+                  activeIndex === i ? "bg-white/[0.02]" : ""
+                }`}
               >
                 <button
                   onClick={() => setActiveIndex(activeIndex === i ? null : i)}
-                  className="w-full flex items-center justify-between py-7 text-left group"
+                  className="w-full flex items-center justify-between py-6 text-left group cursor-pointer"
                 >
-                  <div className="flex items-baseline gap-5 pr-6">
-                    <span className="font-mono text-[11px] tracking-[1.8px] text-[var(--color-brass)] flex-shrink-0 w-6">
+                  <div className="flex items-baseline gap-4 pr-4">
+                    <span className="font-mono text-[12px] tracking-[2px] font-semibold text-[var(--color-brass)] flex-shrink-0 w-7">
                       0{i + 1}
                     </span>
                     <span
-                      className="font-display text-[20px] md:text-[24px] font-light leading-[1.3] text-[var(--color-text)] tracking-[-0.01em]"
+                      className="font-display text-[19px] md:text-[22px] font-light leading-[1.3] text-[var(--color-text)] tracking-[-0.01em] group-hover:text-[var(--color-brass-light)] transition-colors"
                       style={{ fontVariationSettings: '"opsz" 72, "SOFT" 30' }}
                     >
                       {faq.question}
                     </span>
                   </div>
-                  <div className="flex-shrink-0">
+                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-white/5 border border-white/10 flex items-center justify-center group-hover:border-[var(--color-brass)] transition-colors">
                     {activeIndex === i ? (
                       <Minus className="w-4 h-4 text-[var(--color-brass)]" />
                     ) : (
-                      <Plus className="w-4 h-4 text-[var(--color-text-muted)] group-hover:text-[var(--color-text)] transition-colors" />
+                      <Plus className="w-4 h-4 text-[var(--color-text-muted)] group-hover:text-[var(--color-brass)] transition-colors" />
                     )}
                   </div>
                 </button>
@@ -124,10 +126,10 @@ export function FAQ() {
                     height: activeIndex === i ? "auto" : 0,
                     opacity: activeIndex === i ? 1 : 0,
                   }}
-                  transition={{ duration: 0.4, ease: [0.2, 0.8, 0.2, 1] }}
+                  transition={{ duration: 0.35, ease: [0.2, 0.8, 0.2, 1] }}
                   className="overflow-hidden"
                 >
-                  <p className="pb-7 pl-11 pr-6 text-[15px] leading-[1.75] text-[var(--color-text-muted)] max-w-[680px]">
+                  <p className="pb-6 pl-11 pr-4 text-[15px] leading-[1.75] text-[var(--color-text-secondary)] max-w-[720px]">
                     {faq.answer}
                   </p>
                 </motion.div>
