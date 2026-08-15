@@ -1,150 +1,140 @@
-import React from "react";
 import { motion } from "motion/react";
-import { useState } from "react";
+import { Sparkles, Wrench, Hammer, Palette, Disc, ShieldCheck } from "lucide-react";
 import { ChapterHeader } from "./ChapterHeader";
 
 const services = [
   {
     code: "01",
     title: "Polimento & Vitrificação",
+    icon: Sparkles,
     blurb:
-      "Correção de pintura em três etapas e proteção nano-cerâmica. Brilho profundo, hidrofobia, durabilidade de até 3 anos.",
-    detail: "3 etapas · ceramic 9H · 3 anos",
+      "Correção técnica de pintura em 3 etapas e aplicação de proteção nano-cerâmica 9H. Brilho profundo com efeito espelhado, extrema hidrofobia e durabilidade de até 3 anos.",
+    detail: "3 etapas · ceramic 9H · 3 anos de garantia",
+    specs: ["Correção de Swirls", "Nano-cerâmica 9H", "Brilho Espelhado"],
   },
   {
     code: "02",
     title: "Funilaria de Precisão",
+    icon: Wrench,
     blurb:
-      "Reparo estrutural com colorimetria computadorizada. A peça reparada se torna invisível ao olho — e ao espectrofotômetro.",
-    detail: "OEM · colorimetria · 0,001 mm",
+      "Reparo estrutural artesanal com colorimetria computadorizada. A peça restaurada se torna 100% invisível ao olho humano e à medição por espectrofotômetro.",
+    detail: "padrão OEM · colorimetria · tolerância 0,001 mm",
+    specs: ["Espectrofotômetro", "Solda Ponto OEM", "Alinhamento Laser"],
   },
   {
     code: "03",
     title: "Martelinho de Ouro",
+    icon: Hammer,
     blurb:
-      "Técnica artesanal de remoção de amassados sem repintura. Preserva 100% da pintura original e o valor de revenda.",
-    detail: "PDR · sem massa · sem tinta",
+      "Técnica de desamassamento sem repintura (PDR). Preserva a pintura original de fábrica intacta e o valor integral de revenda do seu veículo.",
+    detail: "PDR · sem massa plástica · sem repintura",
+    specs: ["100% Original", "Sem Repintura", "Rápida Liberação"],
   },
   {
     code: "04",
-    title: "Pintura de Fábrica",
+    title: "Pintura de Fábrica (OEM)",
+    icon: Palette,
     blurb:
-      "Reprodução do padrão de saída de fábrica em granulagem, brilho e tonalidade. Cabine pressurizada, secagem controlada.",
-    detail: "padrão OEM · cabine UV",
+      "Reprodução fiel do padrão de saída de fábrica em granulagem, brilho e tonalidade. Executada em cabine pressurizada climatizada com secagem controlada.",
+    detail: "padrão OEM · cabine pressurizada · verniz alto sólidos",
+    specs: ["Cabine Pressurizada", "Verniz High Solid", "Curagem Térmica"],
   },
   {
     code: "05",
     title: "Reforma de Rodas",
+    icon: Disc,
     blurb:
-      "Restauração estrutural e estética. Devolvemos textura, alinhamento e o acabamento de saída de loja.",
-    detail: "alinhamento · pintura · diamantado",
+      "Restauração estrutural e estética de rodas esportivas e originais. Devolvemos textura de fábrica, alinhamento micrométrico e acabamento diamantado.",
+    detail: "torno CNC · pintura epóxi · acabamento diamantado",
+    specs: ["Torno Diamantado", "Pintura Eletrostática", "Balanceamento"],
   },
   {
     code: "06",
     title: "Restauração de Riscos",
+    icon: ShieldCheck,
     blurb:
-      "Correção localizada de imperfeições profundas no verniz. Eliminamos sem precisar repintar a peça inteira.",
-    detail: "spot repair · sem repintura",
+      "Correção localizada e cirúrgica de imperfeições profundas no verniz. Eliminamos riscos e marcas sem a necessidade de repintar a peça inteira.",
+    detail: "spot repair de precisão · preservação de peça",
+    specs: ["Spot Repair", "Sem Desmonte", "Preservação da Peça"],
   },
 ];
 
 export function ChapterServices() {
   return (
-    <section id="services" className="relative z-20 py-32 md:py-48 px-6 md:px-[80px]">
+    <section id="services" className="relative z-20 py-28 md:py-44 px-6 md:px-[80px]">
       <div className="max-w-[1280px] mx-auto">
         <ChapterHeader
           numeral="II"
           label="O Ofício"
           title="Seis disciplinas, <em>uma só obsessão</em>: a originalidade do veículo."
-          lead="O atelier opera em torno de um princípio: cada milímetro de pintura, cada milímetro de chapa, é histórico. Devolvemos sem reescrever."
+          lead="O atelier opera em torno de um princípio: cada milímetro de pintura e chapa carrega história e valor. Devolvemos o estado de fábrica sem reescrever a originalidade."
           align="left"
         />
 
-        {/* Honeycomb grid */}
-        <div className="honeycomb mt-24 md:mt-32">
-          {services.map((s, i) => (
-            <ServiceHex key={s.code} service={s} index={i} />
-          ))}
+        {/* Responsive luxury atelier card grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 mt-16 md:mt-24">
+          {services.map((s, i) => {
+            const Icon = s.icon;
+            return (
+              <motion.div
+                key={s.code}
+                className="atelier-card rounded-xl p-8 md:p-9 flex flex-col justify-between relative group"
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-8%" }}
+                transition={{
+                  duration: 0.7,
+                  delay: (i % 3) * 0.1,
+                  ease: [0.2, 0.8, 0.2, 1],
+                }}
+              >
+                {/* Top bar: Code & Icon */}
+                <div>
+                  <div className="flex items-center justify-between mb-6">
+                    <span className="font-mono text-[12px] tracking-[3px] font-semibold text-[var(--color-brass)] bg-[var(--color-brass)]/10 px-3 py-1 rounded border border-[var(--color-brass)]/20">
+                      {s.code}
+                    </span>
+                    <div className="w-10 h-10 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center text-[var(--color-brass)] transition-colors duration-300 group-hover:border-[var(--color-brass)] group-hover:bg-[var(--color-brass)]/10">
+                      <Icon className="w-5 h-5" />
+                    </div>
+                  </div>
+
+                  {/* Title */}
+                  <h3
+                    className="font-display text-[22px] md:text-[25px] font-light leading-[1.2] text-[var(--color-text)] mb-3.5 tracking-[-0.01em]"
+                    style={{ fontVariationSettings: '"opsz" 72, "SOFT" 40' }}
+                  >
+                    {s.title}
+                  </h3>
+
+                  {/* Description blurb */}
+                  <p className="text-[14px] leading-[1.7] text-[var(--color-text-muted)] mb-6">
+                    {s.blurb}
+                  </p>
+                </div>
+
+                {/* Bottom spec pill & tags */}
+                <div className="pt-4 border-t border-[var(--color-border)]">
+                  <div className="font-mono text-[11px] tracking-[1.5px] uppercase text-[var(--color-brass-light)] mb-3 font-medium">
+                    {s.detail}
+                  </div>
+                  <div className="flex flex-wrap gap-1.5">
+                    {s.specs.map((spec) => (
+                      <span
+                        key={spec}
+                        className="font-mono text-[9.5px] tracking-[0.8px] uppercase text-[var(--color-text-secondary)] bg-black/40 px-2 py-0.5 rounded border border-white/5"
+                      >
+                        {spec}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
       </div>
     </section>
   );
 }
 
-interface ServiceHexProps {
-  service: (typeof services)[number];
-  index: number;
-  key?: React.Key;
-}
-
-function ServiceHex({ service, index }: ServiceHexProps) {
-  const [hovered, setHovered] = useState(false);
-
-  return (
-    <motion.div
-      className="hex-cell relative"
-      initial={{ opacity: 0, y: 30, scale: 0.96 }}
-      whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: true, margin: "-15%" }}
-      transition={{
-        duration: 0.9,
-        delay: (index % 3) * 0.12 + Math.floor(index / 3) * 0.18,
-        ease: [0.2, 0.8, 0.2, 1],
-      }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      style={{
-        width: "var(--hex-w)",
-        height: "var(--hex-h)",
-      }}
-    >
-      {/* Hex outline — fixed unit viewBox, stretches with the cell via preserveAspectRatio */}
-      <svg
-        viewBox="0 0 100 86.6"
-        preserveAspectRatio="none"
-        className="absolute inset-0 w-full h-full pointer-events-none"
-      >
-        <polygon
-          points="25,0.6 75,0.6 99.4,43.3 75,86 25,86 0.6,43.3"
-          fill="rgba(20, 24, 30, 0.6)"
-          stroke={hovered ? "var(--color-led)" : "var(--color-border-strong)"}
-          strokeWidth={hovered ? "0.6" : "0.4"}
-          vectorEffect="non-scaling-stroke"
-          style={{
-            filter: hovered ? "drop-shadow(0 0 14px var(--color-led-glow))" : undefined,
-            transition: "all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1)",
-          }}
-        />
-        {/* Top-edge brass hairline */}
-        <polyline
-          points="25,0.6 75,0.6"
-          fill="none"
-          stroke="var(--color-brass)"
-          strokeWidth="0.3"
-          vectorEffect="non-scaling-stroke"
-          opacity={hovered ? 0.9 : 0.45}
-          style={{ transition: "opacity 0.5s" }}
-        />
-      </svg>
-
-      {/* Content layer */}
-      <div className="relative z-10 h-full flex flex-col items-center justify-center text-center px-10 py-8">
-        <span className="font-mono text-[11px] tracking-[2.5px] text-[var(--color-brass)] mb-3">
-          {service.code}
-        </span>
-        <h3
-          className="font-display text-[20px] md:text-[22px] font-light leading-[1.2] tracking-[-0.01em] text-[var(--color-text)] mb-4"
-          style={{ fontVariationSettings: '"opsz" 72, "SOFT" 50' }}
-        >
-          {service.title}
-        </h3>
-        <p className="text-[13px] md:text-[13.5px] leading-[1.6] text-[var(--color-text-muted)] mb-4 max-w-[240px]">
-          {service.blurb}
-        </p>
-        <span className="font-mono text-[11px] tracking-[1.8px] uppercase text-[var(--color-brass-deep)] opacity-90">
-          {service.detail}
-        </span>
-      </div>
-    </motion.div>
-  );
-}

@@ -55,21 +55,21 @@ export function ChapterContact() {
         </motion.div>
 
         {/* Atelier facts ribbon */}
-        <div className="mt-32 grid grid-cols-1 md:grid-cols-3 gap-px bg-[var(--color-border)]">
+        <div className="mt-24 md:mt-32 grid grid-cols-1 md:grid-cols-3 gap-6">
           {facts.map((f, i) => (
             <motion.div
               key={f.label}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: i * 0.1 }}
-              className="bg-[var(--color-bg)] p-8 md:p-10 flex flex-col gap-3"
+              transition={{ duration: 0.6, delay: i * 0.1 }}
+              className="atelier-card rounded-xl p-8 flex flex-col gap-3"
             >
-              <span className="font-mono text-[11px] tracking-[2px] uppercase text-[var(--color-brass)]">
+              <span className="font-mono text-[11px] tracking-[2.5px] uppercase font-semibold text-[var(--color-brass)]">
                 {f.label}
               </span>
               <span
-                className="font-display text-[19px] md:text-[21px] leading-[1.4] text-[var(--color-text)] whitespace-pre-line"
+                className="font-display text-[18px] md:text-[20px] leading-[1.5] text-[var(--color-text)] whitespace-pre-line"
                 style={{ fontVariationSettings: '"opsz" 72, "SOFT" 30' }}
               >
                 {f.value}
